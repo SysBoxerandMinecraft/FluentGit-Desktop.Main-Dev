@@ -11,6 +11,9 @@ public class AppSettings
     public string? AppTheme { get; set; }
     public bool FilterBuildArtifacts { get; set; } = true;
     public string? BackdropType { get; set; }
+    
+    // 核心：语言字段
+    public string? Language { get; set; } = "zh-CN"; 
 }
 
 public static class SettingsService
@@ -44,7 +47,14 @@ public static class SettingsService
             if (File.Exists(_settingsPath))
             {
                 string json = File.ReadAllText(_settingsPath);
-                return JsonSerializer.Deserialize<AppSettings>(json) ?? new AppSettings();
+                var settings = JsonSerializer.Deserialize<AppSettings>(json);
+                if (settings != null)
+                {
+                    // 兼容旧版 JSON，如果没有 Language 就默认给中文
+                    if (string.IsNullOrEmpty(settings.Language))
+                        settings.Language = "zh-CN";
+                    return settings;
+                }
             }
         }
         catch (Exception ex)

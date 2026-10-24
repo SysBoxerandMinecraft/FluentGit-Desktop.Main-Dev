@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentGit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="FluentGit"
     mc:Ignorable="d">
 
     <Grid>
@@ -56,7 +55,7 @@
 
         <TitleBar
             x:Name="AppTitleBar"
-            Title="FluentGit"
+            x:Uid="AppTitle"
             BackRequested="TitleBar_BackRequested"
             IsBackButtonVisible="False"
             IsPaneToggleButtonVisible="True"
@@ -76,25 +75,25 @@
             SelectionChanged="NavView_SelectionChanged"
             ItemInvoked="NavView_ItemInvoked">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="仓库" Tag="repo" IsSelected="True">
+                <NavigationViewItem x:Uid="NavRepo" Tag="repo" IsSelected="True">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE943;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="文件" Tag="file">
+                <NavigationViewItem x:Uid="NavFile" Tag="file">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B7;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="历史" Tag="history">
+                <NavigationViewItem x:Uid="NavHistory" Tag="history">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE81C;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="克隆" Tag="clone">
+                <NavigationViewItem x:Uid="NavClone" Tag="clone">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8C8;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
@@ -102,7 +101,7 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem Content="设置" Tag="settings">
+                <NavigationViewItem x:Uid="NavSettings" Tag="settings">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE713;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets"

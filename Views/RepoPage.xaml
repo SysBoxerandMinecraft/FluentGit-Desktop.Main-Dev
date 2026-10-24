@@ -58,8 +58,8 @@
                            Visibility="Collapsed" Margin="0,0,0,15" />
 
                 <StackPanel x:Name="GitWarningPanel" Visibility="Collapsed" Spacing="10" Margin="0,0,0,15">
-                    <TextBlock Text="未检测到 Git，请先安装 Git" FontSize="16" Foreground="Red" />
-                    <HyperlinkButton Content="下载 Git for Windows" NavigateUri="https://git-scm.com/install/windows" />
+                    <TextBlock x:Uid="RepoGitNotFound" FontSize="16" Foreground="Red" />
+                    <HyperlinkButton Content="Download Git for Windows" NavigateUri="https://git-scm.com/install/windows" />
                 </StackPanel>
 
                 <!-- 操作面板：初始化 / 打开 / 克隆 -->
@@ -70,16 +70,16 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="RepoPathTextBox" Grid.Column="0"
-                                 PlaceholderText="选择或输入要初始化的目录路径"
+                                 x:Uid="RepoPath"
                                  MinHeight="32" Margin="0,0,10,0" />
-                        <Button Grid.Column="1" Content="浏览..." Click="OnBrowseForInit" MinHeight="32" />
+                        <Button Grid.Column="1" x:Uid="RepoBrowse" Click="OnBrowseForInit" MinHeight="32" />
                     </Grid>
                     <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Button x:Name="InitRepoButton" Content="初始化仓库"
+                        <Button x:Name="InitRepoButton" x:Uid="RepoInit"
                                 Click="OnInitRepository" MinHeight="32" />
-                        <Button x:Name="OpenRepoButton" Content="打开仓库"
+                        <Button x:Name="OpenRepoButton" x:Uid="RepoOpen"
                                 Click="OnOpenRepo" MinHeight="32" />
-                        <Button x:Name="CloneRepoButton" Content="克隆仓库"
+                        <Button x:Name="CloneRepoButton" x:Uid="RepoClone"
                                 Click="OnNavigateToClone" MinHeight="32" />
                     </StackPanel>
                 </StackPanel>
@@ -90,13 +90,13 @@
                         Padding="0,10,0,0" Margin="0,15,0,0"
                         Visibility="Collapsed">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="仓库操作" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock x:Uid="RepoOpsTitle" FontWeight="SemiBold" FontSize="16" />
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Button x:Name="PullButton" Content="拉取"
+                            <Button x:Name="PullButton" x:Uid="RepoPull"
                                     Click="OnPullRepository" MinHeight="32" />
-                            <Button x:Name="FetchButton" Content="获取"
+                            <Button x:Name="FetchButton" x:Uid="RepoFetch"
                                     Click="OnFetchRepository" MinHeight="32" />
-                            <Button x:Name="PushButton" Content="推送"
+                            <Button x:Name="PushButton" x:Uid="RepoPush"
                                     Click="OnPushRepository" MinHeight="32" />
                         </StackPanel>
                     </StackPanel>
@@ -108,24 +108,23 @@
                         Padding="0,10,0,0" Margin="0,15,0,0"
                         Visibility="Collapsed">
                     <StackPanel Spacing="10">
-                        <TextBlock Text="提交变更" FontWeight="SemiBold" FontSize="16" />
+                        <TextBlock x:Uid="RepoCommitTitle" FontWeight="SemiBold" FontSize="16" />
 
                         <TextBlock x:Name="ChangeStatusText"
                                    FontSize="13"
-                                   Foreground="Gray"
-                                   Text="正在读取变更..." />
+                                   Foreground="Gray" />
 
                         <TextBox x:Name="CommitMessageTextBox"
-                                 PlaceholderText="输入提交信息（必填）"
+                                 x:Uid="RepoCommitPlaceholder"
                                  MinHeight="32"
                                  AcceptsReturn="False" />
 
                         <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Button x:Name="AddAllButton" Content="全部暂存"
+                            <Button x:Name="AddAllButton" x:Uid="RepoAddAll"
                                     Click="OnAddAll" MinHeight="32" />
-                            <Button x:Name="CommitButton" Content="提交"
+                            <Button x:Name="CommitButton" x:Uid="RepoCommit"
                                     Click="OnCommit" MinHeight="32" />
-                            <Button x:Name="RefreshStatusButton" Content="刷新状态"
+                            <Button x:Name="RefreshStatusButton" x:Uid="RepoRefreshStatus"
                                     Click="OnRefreshChangeStatus" MinHeight="32" />
                         </StackPanel>
                     </StackPanel>

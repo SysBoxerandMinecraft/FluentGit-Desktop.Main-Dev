@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- 通用 -->
+  <data name="AppTitle.Title" xml:space="preserve"><value>FluentGit</value></data>
+  <data name="CommonSuccess" xml:space="preserve"><value>成功</value></data>
+  <data name="CommonError" xml:space="preserve"><value>錯誤</value></data>
+  <data name="CommonWarning" xml:space="preserve"><value>警告</value></data>
+  <data name="CommonInfo" xml:space="preserve"><value>提示</value></data>
+  <data name="CommonOK" xml:space="preserve"><value>確定</value></data>
+  <data name="CommonCancel" xml:space="preserve"><value>取消</value></data>
+  <data name="CommonClose" xml:space="preserve"><value>關閉</value></data>
+  <data name="CommonRefresh" xml:space="preserve"><value>重新整理</value></data>
+  <data name="CommonBrowse.Content" xml:space="preserve"><value>瀏覽...</value></data>
+  <data name="CommonNoRepo" xml:space="preserve"><value>尚未開啟任何倉庫，請先到「倉庫」頁面開啟一個倉庫。</value></data>
+
+  <!-- 導覽列 -->
+  <data name="NavRepo.Content" xml:space="preserve"><value>倉庫</value></data>
+  <data name="NavFile.Content" xml:space="preserve"><value>檔案</value></data>
+  <data name="NavHistory.Content" xml:space="preserve"><value>歷史</value></data>
+  <data name="NavClone.Content" xml:space="preserve"><value>複製</value></data>
+  <data name="NavSettings.Content" xml:space="preserve"><value>設定</value></data>
+
+  <!-- 倉庫頁 (RepoPage) -->
+  <data name="RepoInit.Content" xml:space="preserve"><value>初始化倉庫</value></data>
+  <data name="RepoOpen.Content" xml:space="preserve"><value>開啟倉庫</value></data>
+  <data name="RepoClone.Content" xml:space="preserve"><value>複製倉庫</value></data>
+  <data name="RepoPath.PlaceholderText" xml:space="preserve"><value>選擇或輸入要初始化的目錄路徑</value></data>
+  <data name="RepoBrowse.Content" xml:space="preserve"><value>瀏覽...</value></data>
+  <data name="RepoOpsTitle.Text" xml:space="preserve"><value>倉庫操作</value></data>
+  <data name="RepoPull.Content" xml:space="preserve"><value>拉取</value></data>
+  <data name="RepoFetch.Content" xml:space="preserve"><value>獲取</value></data>
+  <data name="RepoPush.Content" xml:space="preserve"><value>推送</value></data>
+  <data name="RepoCommitTitle.Text" xml:space="preserve"><value>提交變更</value></data>
+  <data name="RepoCommitPlaceholder.PlaceholderText" xml:space="preserve"><value>輸入提交資訊（必填）</value></data>
+  <data name="RepoAddAll.Content" xml:space="preserve"><value>全部暫存</value></data>
+  <data name="RepoCommit.Content" xml:space="preserve"><value>提交</value></data>
+  <data name="RepoRefreshStatus.Content" xml:space="preserve"><value>重新整理狀態</value></data>
+  <data name="RepoGitNotFound.Text" xml:space="preserve"><value>未檢測到 Git，請先安裝 Git</value></data>
+  <data name="RepoClean" xml:space="preserve"><value>工作區乾淨，無變更</value></data>
+  <data name="RepoMod" xml:space="preserve"><value>修改 {0}</value></data>
+  <data name="RepoAdd" xml:space="preserve"><value>新增 {0}</value></data>
+  <data name="RepoUntracked" xml:space="preserve"><value>未追蹤 {0}</value></data>
+  <!-- RepoPage C# 內部文本 -->
+  <data name="RepoErrNoRepo" xml:space="preserve"><value>請先開啟一個 Git 倉庫!</value></data>
+  <data name="RepoErrGitPath" xml:space="preserve"><value>Git 路徑無效，請檢查設定!</value></data>
+  <data name="RepoErrActionFailed" xml:space="preserve"><value>操作失敗: {0}</value></data>
+  <data name="RepoStatusPulling" xml:space="preserve"><value>正在拉取更新，請稍候...</value></data>
+  <data name="RepoStatusFetching" xml:space="preserve"><value>正在獲取遠端資訊...</value></data>
+  <data name="RepoStatusPushing" xml:space="preserve"><value>正在推送到遠端...</value></data>
+  <data name="RepoErrNoCommitMsg" xml:space="preserve"><value>請輸入提交資訊!</value></data>
+  <data name="RepoErrInitPath" xml:space="preserve"><value>請選擇或輸入目錄路徑!</value></data>
+  <data name="RepoErrInitNotExist" xml:space="preserve"><value>目錄不存在，請檢查路徑!</value></data>
+  <data name="RepoErrInitAlready" xml:space="preserve"><value>該目錄已是 Git 倉庫!</value></data>
+  <data name="RepoInitSuccess" xml:space="preserve"><value>倉庫初始化成功: {0}</value></data>
+  <data name="RepoInitFailed" xml:space="preserve"><value>初始化失敗，請重試!</value></data>
+  <data name="RepoOpenSuccess" xml:space="preserve"><value>已開啟倉庫: {0}</value></data>
+  <data name="RepoOpenNotGit" xml:space="preserve"><value>所選目錄不是 Git 倉庫！</value></data>
+  <data name="RepoStatusUnopened" xml:space="preserve"><value>未開啟倉庫</value></data>
+  <data name="RepoStatusReading" xml:space="preserve"><value>正在讀取變更...</value></data>
+  <data name="RepoStatusReadFailed" xml:space="preserve"><value>讀取變更失敗</value></data>
+
+  <!-- 設定頁 (SettingsPage) -->
+  <data name="SettingsTitle.Text" xml:space="preserve"><value>設定</value></data>
+  <data name="SettingsSearchBox.PlaceholderText" xml:space="preserve"><value>搜尋設定選項</value></data>
+  <data name="SettingsNoResult.Text" xml:space="preserve"><value>未找到符合的設定選項</value></data>
+  <data name="SettingsLanguage.Text" xml:space="preserve"><value>語言</value></data>
+  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>選擇應用程式語言（變更後需重新啟動）</value></data>
+  <data name="SettingsTheme.Text" xml:space="preserve"><value>外觀</value></data>
+  <data name="SettingsBackdrop.Text" xml:space="preserve"><value>視窗背景效果</value></data>
+  <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git 安裝路徑</value></data>
+  <data name="SettingsFilterArtifacts.Content" xml:space="preserve"><value>過濾編譯產物 / 臨時檔案</value></data>
+  <!-- SettingsPage C# 內部文本 -->
+  <data name="SettingsGitGroup.Text" xml:space="preserve"><value>Git 管理</value></data>
+  <data name="SettingsTreeViewGroup.Text" xml:space="preserve"><value>樹狀圖顯示選項</value></data>
+  <data name="SettingsFilterDesc.Text" xml:space="preserve"><value>在目錄樹中隱藏 bin、obj、node_modules、__pycache__ 等構建產物和依賴目錄</value></data>
+  <data name="SettingsGitSearching" xml:space="preserve"><value>正在尋找 Git...</value></data>
+  <data name="SettingsGitCurrentPath" xml:space="preserve"><value>目前 Git 路徑：{0}</value></data>
+  <data name="SettingsGitNoPath" xml:space="preserve"><value>目前選中路徑：無</value></data>
+  <data name="SettingsGitVersion" xml:space="preserve"><value>版本：{0}</value></data>
+  <data name="SettingsBackdropDefault" xml:space="preserve"><value>跟隨系統</value></data>
+  <data name="SettingsBackdropAcrylic" xml:space="preserve"><value>亞克力(毛玻璃)</value></data>
+  <data name="SettingsBackdropNone" xml:space="preserve"><value>純色</value></data>
+  <data name="SettingsBackdropMica" xml:space="preserve"><value>Mica</value></data>
+  <data name="SettingsHintDefaultOk" xml:space="preserve"><value>根據系統自動選擇最佳效果。目前系統支援 Mica。</value></data>
+  <data name="SettingsHintDefaultFail" xml:space="preserve"><value>根據系統自動選擇最佳效果。目前系統不支援 Mica，將使用純色背景。</value></data>
+  <data name="SettingsHintMicaOk" xml:space="preserve"><value>目前系統支援 Mica。取樣桌面桌布色調，效能開銷低。</value></data>
+  <data name="SettingsHintMicaFail" xml:space="preserve"><value>目前系統不支援 Mica，將回退為純色背景。</value></data>
+  <data name="SettingsHintAcrylicOk" xml:space="preserve"><value>目前系統支援亞克力。即時模糊視窗背後內容，效能開銷較大。</value></data>
+  <data name="SettingsHintAcrylicFail" xml:space="preserve"><value>目前系統不支援亞克力，將回退為純色背景。</value></data>
+  <data name="SettingsHintNone" xml:space="preserve"><value>使用純色背景，效能最好。</value></data>
+  <data name="SettingsToastFilterOn" xml:space="preserve"><value>已開啟過濾編譯產物</value></data>
+  <data name="SettingsToastFilterOff" xml:space="preserve"><value>已關閉過濾編譯產物</value></data>
+  <data name="SettingsToastSettingsUpdated" xml:space="preserve"><value>設定已更新</value></data>
+  <data name="SettingsToastBackdropChanged" xml:space="preserve"><value>視窗背景已切換為「{0}」</value></data>
+  <data name="SettingsToastAppearanceUpdated" xml:space="preserve"><value>外觀已更新</value></data>
+  <data name="SettingsToastGitNotFound" xml:space="preserve"><value>未找到 Git，請先安裝 Git for Windows</value></data>
+  <data name="SettingsToastGitInvalid" xml:space="preserve"><value>找到的 Git 未通過簽章驗證，可能不是官方版本</value></data>
+  <data name="SettingsToastGitFound" xml:space="preserve"><value>已找到 Git：{0}</value></data>
+  <data name="SettingsToastSearchError" xml:space="preserve"><value>尋找異常: {0}</value></data>
+  <data name="SettingsSearchTitleLanguage" xml:space="preserve"><value>語言設定</value></data>
+  <data name="SettingsSearchTitleGit" xml:space="preserve"><value>Git 安裝路徑</value></data>
+  <data name="SettingsSearchTitleBackdrop" xml:space="preserve"><value>視窗背景效果</value></data>
+  <data name="SettingsSearchTitleFilter" xml:space="preserve"><value>過濾編譯產物 / 臨時檔案</value></data>
+
+  <!-- 歷史頁 (HistoryPage) -->
+  <data name="HistoryTitle.Text" xml:space="preserve"><value>提交歷史</value></data>
+  <data name="HistoryEmpty.Text" xml:space="preserve"><value>該倉庫還沒有任何提交記錄。</value></data>
+  <data name="HistoryCopyHash.Text" xml:space="preserve"><value>複製完整 Hash</value></data>
+  <data name="HistoryCopyShortHash.Text" xml:space="preserve"><value>複製短 Hash</value></data>
+  <data name="HistoryCopyMsg.Text" xml:space="preserve"><value>複製提交資訊</value></data>
+  <data name="HistoryViewDetail.Text" xml:space="preserve"><value>檢視詳情</value></data>
+  <data name="HistoryDetailTitle" xml:space="preserve"><value>提交詳情</value></data>
+  <data name="HistoryDetailHash" xml:space="preserve"><value>Hash</value></data>
+  <data name="HistoryDetailShortHash" xml:space="preserve"><value>短 Hash</value></data>
+  <data name="HistoryDetailAuthor" xml:space="preserve"><value>作者</value></data>
+  <data name="HistoryDetailEmail" xml:space="preserve"><value>電子郵件</value></data>
+  <data name="HistoryDetailTime" xml:space="preserve"><value>時間</value></data>
+  <data name="HistoryDetailRelative" xml:space="preserve"><value>相對</value></data>
+  <data name="HistoryDetailMsg" xml:space="preserve"><value>提交資訊</value></data>
+  <data name="HistoryTooltipCopyHash" xml:space="preserve"><value>點擊複製完整 Hash</value></data>
+  <data name="HistoryErrGitPath" xml:space="preserve"><value>Git 路徑無效，請到設定頁檢查。</value></data>
+
+  <!-- 檔案頁 (FilePage) -->
+  <data name="FileTitle.Text" xml:space="preserve"><value>檔案瀏覽</value></data>
+  <data name="FileOpen.Text" xml:space="preserve"><value>開啟</value></data>
+  <data name="FileOpenTerminal.Text" xml:space="preserve"><value>在終端機中開啟</value></data>
+  <data name="FileOpenExplorer.Text" xml:space="preserve"><value>在檔案總管中開啟</value></data>
+  <data name="FileCopyPath.Text" xml:space="preserve"><value>複製完整路徑</value></data>
+  <data name="FileCopyName.Text" xml:space="preserve"><value>複製名稱</value></data>
+  <data name="FileRefreshTree.Text" xml:space="preserve"><value>重新整理目錄樹</value></data>
+  <data name="FileRepoRoot" xml:space="preserve"><value>{0}（倉庫）</value></data>
+
+  <!-- 複製頁 (ClonePage) -->
+  <data name="CloneTitle.Text" xml:space="preserve"><value>複製倉庫</value></data>
+  <data name="CloneUrl.Header" xml:space="preserve"><value>遠端位址</value></data>
+  <data name="CloneUrl.PlaceholderText" xml:space="preserve"><value>https://github.com/user/repo.git</value></data>
+  <data name="ClonePath.Header" xml:space="preserve"><value>目標目錄</value></data>
+  <data name="ClonePath.PlaceholderText" xml:space="preserve"><value>選擇或輸入一個空目錄</value></data>
+  <data name="CloneBranchHeader.Text" xml:space="preserve"><value>分支（選填）</value></data>
+  <data name="CloneDepthHeader.Text" xml:space="preserve"><value>複製深度</value></data>
+  <data name="CloneDepthPlaceholder.PlaceholderText" xml:space="preserve"><value>輸入數字或選擇預設</value></data>
+  <data name="CloneDepthHint.Text" xml:space="preserve"><value>也可直接輸入數字，例如 20 表示只拉最近 20 個提交；0 表示完整歷史</value></data>
+  <data name="CloneStart.Content" xml:space="preserve"><value>開始複製</value></data>
+  <data name="CloneDefaultBranch" xml:space="preserve"><value>預設分支</value></data>
+  <data name="CloneChecking" xml:space="preserve"><value>檢查中...</value></data>
+  <data name="CloneLoading" xml:space="preserve"><value>載入中...</value></data>
+  <data name="CloneHintDefault" xml:space="preserve"><value>填完遠端位址後自動載入分支</value></data>
+  <data name="CloneHintChecking" xml:space="preserve"><value>正在檢查遠端倉庫...</value></data>
+  <data name="CloneDepthFull.Content" xml:space="preserve"><value>完整歷史（預設）</value></data>
+  <data name="CloneDepth1.Content" xml:space="preserve"><value>最近 1 個提交（最快）</value></data>
+  <data name="CloneDepth5.Content" xml:space="preserve"><value>最近 5 個提交</value></data>
+  <data name="CloneDepth10.Content" xml:space="preserve"><value>最近 10 個提交</value></data>
+  <data name="CloneDepth50.Content" xml:space="preserve"><value>最近 50 個提交</value></data>
+  <data name="CloneDepth100.Content" xml:space="preserve"><value>最近 100 個提交</value></data>
+  <data name="CloneLoadedBranches" xml:space="preserve"><value>已載入 {0} 個分支</value></data>
+  <data name="CloneNoBranches" xml:space="preserve"><value>未獲取到分支，可能是位址無效或網路問題，將使用預設分支</value></data>
+  <data name="CloneRecentCommits" xml:space="preserve"><value>最近 {0} 個提交</value></data>
+  <data name="CloneWarningDepthTitle" xml:space="preserve"><value>複製深度超過實際提交數</value></data>
+  <data name="CloneWarningDepthMsg" xml:space="preserve"><value>你輸入了 {0}，但遠端倉庫只有 {1} 個提交。Git 會自動拉取全部 {1} 個提交，不會報錯。</value></data>
+  <data name="CloneStatusCloning" xml:space="preserve"><value>正在複製...</value></data>
+  <data name="CloneStatusSuccess" xml:space="preserve"><value>複製成功：{0}</value></data>
+  <data name="CloneStatusFailed" xml:space="preserve"><value>複製失敗</value></data>
+  <data name="CloneStatusCancelled" xml:space="preserve"><value>複製已取消</value></data>
+  <data name="CloneErrGitPath" xml:space="preserve"><value>Git 路徑無效，請到設定頁檢查。</value></data>
+  <data name="CloneErrUrl" xml:space="preserve"><value>請填寫遠端位址。</value></data>
+  <data name="CloneErrPath" xml:space="preserve"><value>請選擇目標目錄。</value></data>
+</root>

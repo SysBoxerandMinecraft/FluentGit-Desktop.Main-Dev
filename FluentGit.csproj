@@ -8,6 +8,7 @@
     <TargetPlatformMinVersion>10.0.19045.0</TargetPlatformMinVersion>
     <RootNamespace>FluentGit</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <DefaultLanguage>en-US</DefaultLanguage>
 
     <!-- 只保留 x64 和 ARM64 -->
     <Platforms>x64;ARM64</Platforms>

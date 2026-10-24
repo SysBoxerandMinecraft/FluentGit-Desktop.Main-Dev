@@ -94,7 +94,6 @@ public sealed partial class FilePage : Page
         return SkipFolders;
     }
 
-    // ========== 内置图标 ==========
     private static string IconRoot =>
         Path.Combine(AppContext.BaseDirectory, "Assets", "File_Icon");
 
@@ -120,7 +119,6 @@ public sealed partial class FilePage : Page
         return null;
     }
 
-    // ========== 目录树（懒加载） ==========
     private void LoadDirectoryTree(string rootPath)
     {
         AppLogger.Info(TAG, $"加载根节点: {rootPath}");
@@ -137,7 +135,7 @@ public sealed partial class FilePage : Page
 
             var rootModel = new TreeItemModel
             {
-                Name = rootName + "（仓库）",
+                Name = string.Format(Loc.GetString("FileRepoRoot"), rootName),
                 FullPath = rootPath,
                 IsFile = false,
                 IconSource = GetIcon("Full_Folder.png")
@@ -225,7 +223,6 @@ public sealed partial class FilePage : Page
         return false;
     }
 
-    // ========== 展开时懒加载下一层 ==========
     private void DirectoryTreeView_Expanding(TreeView sender, TreeViewExpandingEventArgs args)
     {
         var node = args.Node;
@@ -245,7 +242,6 @@ public sealed partial class FilePage : Page
         }
     }
 
-    // ========== 双击打开 ==========
     private void DirectoryTreeView_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
     {
         TreeItemModel? model = ExtractModel(args.InvokedItem);
@@ -265,7 +261,6 @@ public sealed partial class FilePage : Page
         }
     }
 
-    // ========== 右键菜单 ==========
     private void DirectoryTreeView_RightTapped(object sender, RightTappedRoutedEventArgs e)
     {
         var element = e.OriginalSource as FrameworkElement;
@@ -292,7 +287,7 @@ public sealed partial class FilePage : Page
         {
             var openItem = new MenuFlyoutItem
             {
-                Text = "打开",
+                Text = Loc.GetString("FileOpen.Text"),
                 Icon = new SymbolIcon(Symbol.OpenFile)
             };
             openItem.Click += (_, _) => OpenFile(model.FullPath);
@@ -302,7 +297,7 @@ public sealed partial class FilePage : Page
         {
             var terminalItem = new MenuFlyoutItem
             {
-                Text = "在终端中打开",
+                Text = Loc.GetString("FileOpenTerminal.Text"),
                 Icon = new SymbolIcon(Symbol.Play)
             };
             terminalItem.Click += (_, _) => OpenTerminal(model.FullPath);
@@ -310,7 +305,7 @@ public sealed partial class FilePage : Page
 
             var explorerItem = new MenuFlyoutItem
             {
-                Text = "在文件资源管理器中打开",
+                Text = Loc.GetString("FileOpenExplorer.Text"),
                 Icon = new SymbolIcon(Symbol.Folder)
             };
             explorerItem.Click += (_, _) => OpenExplorer(model.FullPath);
@@ -321,7 +316,7 @@ public sealed partial class FilePage : Page
 
         var copyPathItem = new MenuFlyoutItem
         {
-            Text = "复制完整路径",
+            Text = Loc.GetString("FileCopyPath.Text"),
             Icon = new SymbolIcon(Symbol.Copy)
         };
         copyPathItem.Click += (_, _) => CopyToClipboard(model.FullPath);
@@ -329,7 +324,7 @@ public sealed partial class FilePage : Page
 
         var copyNameItem = new MenuFlyoutItem
         {
-            Text = "复制名称",
+            Text = Loc.GetString("FileCopyName.Text"),
             Icon = new SymbolIcon(Symbol.Copy)
         };
         copyNameItem.Click += (_, _) => CopyToClipboard(model.Name);
@@ -339,7 +334,7 @@ public sealed partial class FilePage : Page
 
         var refreshItem = new MenuFlyoutItem
         {
-            Text = "刷新目录树",
+            Text = Loc.GetString("FileRefreshTree.Text"),
             Icon = new SymbolIcon(Symbol.Refresh)
         };
         refreshItem.Click += (_, _) =>
@@ -353,7 +348,6 @@ public sealed partial class FilePage : Page
         return menu;
     }
 
-    // ========== 右键菜单具体动作 ==========
     private void OpenFile(string path)
     {
         try
@@ -443,7 +437,6 @@ public sealed partial class FilePage : Page
         }
     }
 
-    // ========== 工具方法 ==========
     private static T? FindAncestor<T>(DependencyObject? obj) where T : DependencyObject
     {
         var cur = obj;

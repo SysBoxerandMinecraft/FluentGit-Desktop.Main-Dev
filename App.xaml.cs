@@ -1,7 +1,7 @@
-﻿// Copyright (c) 2026 SysBoxerandMinecraft. Licensed under the MIT License.
-using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml;
 using System;
 using FluentGit.Services;
+using Windows.Globalization;
 
 namespace FluentGit;
 
@@ -12,6 +12,21 @@ public partial class App : Application
 
     public App()
     {
+        try
+        {
+            var settings = SettingsService.Load();
+            string targetLang = settings.Language ?? "zh-CN";
+            
+            // 设置强制覆盖语言
+            ApplicationLanguages.PrimaryLanguageOverride = targetLang;
+            
+            System.Diagnostics.Debug.WriteLine($"[FluentGit] Language Override Set To: {targetLang}");
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"应用语言设置失败: {ex.Message}");
+        }
+
         InitializeComponent();
 
         UnhandledException += OnUnhandledException;
@@ -30,7 +45,6 @@ public partial class App : Application
 
     private void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // 过滤 WinUI 3 已知问题：Popup 上下文里 SymbolThemeFontFamily 解析失败
         if (e.Exception is ArgumentException argEx &&
             argEx.Message.Contains("FontFamily", StringComparison.OrdinalIgnoreCase))
         {

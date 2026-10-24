@@ -9,7 +9,6 @@ namespace FluentGit.Views;
 
 public sealed partial class RepoPage
 {
-    // ========== 通用 Git 操作执行器 ==========
     private async Task ExecuteGitOperationAsync(
         string operationName,
         Func<string, string, Task<(bool Success, string Message)>> action,
@@ -21,7 +20,7 @@ public sealed partial class RepoPage
         var repoPath = AppState.CurrentRepoPath;
         if (string.IsNullOrEmpty(repoPath) || !Directory.Exists(repoPath))
         {
-            ShowInfoBar("错误", "请先打开一个 Git 仓库!", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrNoRepo"), InfoBarSeverity.Error);
             return;
         }
 
@@ -29,7 +28,7 @@ public sealed partial class RepoPage
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            ShowInfoBar("错误", "Git 路径无效，请检查设置!", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrGitPath"), InfoBarSeverity.Error);
             return;
         }
 
@@ -38,24 +37,24 @@ public sealed partial class RepoPage
             _isBusy = true;
 
             if (!string.IsNullOrEmpty(startMessage))
-                ShowInfoBar("提示", startMessage, InfoBarSeverity.Informational);
+                ShowInfoBar(Loc.GetString("CommonInfo"), startMessage, InfoBarSeverity.Informational);
 
             var result = await action(gitPath, repoPath);
 
             if (result.Success)
             {
-                ShowInfoBar("成功", result.Message, InfoBarSeverity.Success);
+                ShowInfoBar(Loc.GetString("CommonSuccess"), result.Message, InfoBarSeverity.Success);
                 onSuccess?.Invoke();
             }
             else
             {
-                ShowInfoBar("错误", result.Message, InfoBarSeverity.Error);
+                ShowInfoBar(Loc.GetString("CommonError"), result.Message, InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"{operationName} 异常: {ex.Message}");
-            ShowInfoBar("错误", $"操作失败: {ex.Message}", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), string.Format(Loc.GetString("RepoErrActionFailed"), ex.Message), InfoBarSeverity.Error);
         }
         finally
         {
@@ -63,7 +62,6 @@ public sealed partial class RepoPage
         }
     }
 
-    // ========== 初始化仓库 ==========
     private void OnInitRepository(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
@@ -71,17 +69,17 @@ public sealed partial class RepoPage
         string path = RepoPathTextBox.Text.Trim();
         if (string.IsNullOrEmpty(path))
         {
-            ShowInfoBar("警告", "请选择或输入目录路径!", InfoBarSeverity.Warning);
+            ShowInfoBar(Loc.GetString("CommonWarning"), Loc.GetString("RepoErrInitPath"), InfoBarSeverity.Warning);
             return;
         }
         if (!Directory.Exists(path))
         {
-            ShowInfoBar("错误", "目录不存在，请检查路径!", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrInitNotExist"), InfoBarSeverity.Error);
             return;
         }
         if (GitService.IsGitRepository(path))
         {
-            ShowInfoBar("提示", "该目录已是 Git 仓库!", InfoBarSeverity.Informational);
+            ShowInfoBar(Loc.GetString("CommonInfo"), Loc.GetString("RepoErrInitAlready"), InfoBarSeverity.Informational);
             return;
         }
 
@@ -89,7 +87,7 @@ public sealed partial class RepoPage
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            ShowInfoBar("错误", "Git 路径无效，请检查设置!", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrGitPath"), InfoBarSeverity.Error);
             return;
         }
 
@@ -100,17 +98,17 @@ public sealed partial class RepoPage
             if (success)
             {
                 AppLogger.OK(TAG, $"仓库初始化成功: {path}");
-                ShowInfoBar("成功", $"仓库初始化成功: {path}", InfoBarSeverity.Success);
+                ShowInfoBar(Loc.GetString("CommonSuccess"), string.Format(Loc.GetString("RepoInitSuccess"), path), InfoBarSeverity.Success);
             }
             else
             {
-                ShowInfoBar("错误", "初始化失败，请重试!", InfoBarSeverity.Error);
+                ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoInitFailed"), InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"git init 异常: {ex.Message}");
-            ShowInfoBar("错误", $"错误: {ex.Message}", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), ex.Message, InfoBarSeverity.Error);
         }
         finally
         {
@@ -118,7 +116,6 @@ public sealed partial class RepoPage
         }
     }
 
-    // ========== 打开仓库 ==========
     private async void OnOpenRepo(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
@@ -144,17 +141,17 @@ public sealed partial class RepoPage
                 RepoNameDisplay.Visibility = Visibility.Visible;
                 UpdateCloneUI();
                 AppLogger.OK(TAG, $"已打开仓库: {repoPath}");
-                ShowInfoBar("成功", $"已打开仓库: {Path.GetFileName(repoPath)}", InfoBarSeverity.Success);
+                ShowInfoBar(Loc.GetString("CommonSuccess"), string.Format(Loc.GetString("RepoOpenSuccess"), Path.GetFileName(repoPath)), InfoBarSeverity.Success);
             }
             else
             {
-                ShowInfoBar("错误", "所选目录不是 Git 仓库！", InfoBarSeverity.Error);
+                ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoOpenNotGit"), InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"打开仓库异常: {ex.Message}");
-            ShowInfoBar("错误", $"打开异常: {ex.Message}", InfoBarSeverity.Error);
+            ShowInfoBar(Loc.GetString("CommonError"), ex.Message, InfoBarSeverity.Error);
         }
         finally
         {
@@ -162,7 +159,6 @@ public sealed partial class RepoPage
         }
     }
 
-    // ========== 拉取更新 ==========
     private async void OnPullRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -172,10 +168,9 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.PullRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: "正在拉取更新，请稍候...");
+            startMessage: Loc.GetString("RepoStatusPulling"));
     }
 
-    // ========== 获取远程信息 ==========
     private async void OnFetchRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -185,10 +180,9 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.FetchRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: "正在获取远程信息...");
+            startMessage: Loc.GetString("RepoStatusFetching"));
     }
 
-    // ========== 全部暂存 ==========
     private async void OnAddAll(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -201,13 +195,12 @@ public sealed partial class RepoPage
             onSuccess: RefreshChangeStatus);
     }
 
-    // ========== 提交 ==========
     private async void OnCommit(object sender, RoutedEventArgs e)
     {
         string message = CommitMessageTextBox.Text.Trim();
         if (string.IsNullOrEmpty(message))
         {
-            ShowInfoBar("警告", "请输入提交信息!", InfoBarSeverity.Warning);
+            ShowInfoBar(Loc.GetString("CommonWarning"), Loc.GetString("RepoErrNoCommitMsg"), InfoBarSeverity.Warning);
             return;
         }
 
@@ -225,12 +218,11 @@ public sealed partial class RepoPage
             });
     }
 
-    // ========== 刷新变更状态（点击事件） ==========
     private void OnRefreshChangeStatus(object sender, RoutedEventArgs e)
     {
         RefreshChangeStatus();
     }
-    // ========== 推送 ==========
+
     private async void OnPushRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -240,6 +232,6 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.PushRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: "正在推送到远程...");
+            startMessage: Loc.GetString("RepoStatusPushing"));
     }
 }
