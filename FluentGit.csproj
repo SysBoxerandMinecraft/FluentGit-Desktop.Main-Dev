@@ -102,6 +102,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Strings\**\*.resw" />
+  </ItemGroup>
+  <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
