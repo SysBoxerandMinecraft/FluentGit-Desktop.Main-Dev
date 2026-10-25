@@ -45,8 +45,8 @@
         <Setter Property="MinWidth" Value="130" />
     </Style>
 
-    <!-- ========== 内容区宽度 ========== -->
-    <x:Double x:Key="FormContentMaxWidth">1000</x:Double>
-    <x:Double x:Key="FormContentMinWidth">700</x:Double>
+    <!-- ========== 内容区宽度 (修改了这里) ========== -->
+    <x:Double x:Key="FormContentMaxWidth">800</x:Double>
+    <x:Double x:Key="FormContentMinWidth">500</x:Double>
 
 </ResourceDictionary>
