@@ -5,124 +5,92 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
-    <Grid Margin="30,90,30,30">
-        <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 顶部：标题 -->
+        <Grid Grid.Row="0" Margin="30,24,30,12">
+            <TextBlock x:Uid="CloneTitle" 
+                       FontSize="28" 
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- 内容区 -->
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
-            <StackPanel HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Spacing="20"
-                        MinWidth="{StaticResource FormContentMinWidth}"
-                        MaxWidth="{StaticResource FormContentMaxWidth}">
+            <StackPanel Margin="30,6,30,30" Spacing="24">
 
-                <TextBlock Text="克隆仓库"
-                           Style="{StaticResource PageTitleStyle}" />
+                <!-- 提示条 -->
+                <InfoBar x:Name="WarningBar" IsOpen="False" Severity="Warning" IsClosable="True" Title="" Message="" />
 
-                <!-- 提示条：深度超出仓库提交数等警告 -->
-                <InfoBar x:Name="WarningBar"
-                         IsOpen="False"
-                         Severity="Warning"
-                         IsClosable="True"
-                         Title=""
-                         Message="" />
+                <!-- 表单卡片 -->
+                <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="6" Padding="16">
+                    <StackPanel Spacing="16">
 
-                <!-- 远程地址 -->
-                <TextBox x:Name="UrlBox"
-                         Header="远程地址"
-                         PlaceholderText="https://github.com/user/repo.git"
-                         Style="{StaticResource FormTextBoxStyle}"
-                         TextChanged="OnUrlTextChanged" />
+                        <!-- 远程地址 -->
+                        <TextBox x:Name="UrlBox" x:Uid="CloneUrl"
+                                 Style="{StaticResource FormTextBoxStyle}"
+                                 TextChanged="OnUrlTextChanged" />
 
-                <!-- 目标目录 -->
-                <Grid ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                        <!-- 目标目录 -->
+                        <Grid ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PathBox" Grid.Column="0" x:Uid="ClonePath"
+                                     Style="{StaticResource FormTextBoxStyle}" />
+                            <Button x:Name="BrowseButton" Grid.Column="1" x:Uid="CommonBrowse"
+                                    Click="OnBrowseClick" Style="{StaticResource FormButtonStyle}" />
+                        </Grid>
 
-                    <TextBox x:Name="PathBox"
-                             Grid.Column="0"
-                             Header="目标目录"
-                             PlaceholderText="选择或输入一个空目录"
-                             Style="{StaticResource FormTextBoxStyle}" />
+                        <!-- 分支 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock x:Uid="CloneBranchHeader" FontSize="14" FontWeight="SemiBold" />
+                            <DropDownButton x:Name="BranchDropdown" IsEnabled="False" HorizontalAlignment="Left" MinWidth="260" MinHeight="38">
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout x:Name="BranchMenu" Placement="Bottom" />
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+                            <TextBlock x:Name="BranchHint" Style="{StaticResource CaptionTextStyle}" />
+                        </StackPanel>
 
-                    <Button x:Name="BrowseButton"
-                            Grid.Column="1"
-                            Content="浏览..."
-                            Click="OnBrowseClick"
-                            VerticalAlignment="Bottom"
-                            Style="{StaticResource FormButtonStyle}" />
-                </Grid>
+                        <!-- 克隆深度 -->
+                        <StackPanel Spacing="6">
+                            <TextBlock x:Uid="CloneDepthHeader" FontSize="14" FontWeight="SemiBold" />
+                            <ComboBox x:Name="DepthCombo" x:Uid="CloneDepthPlaceholder"
+                                      IsEditable="True" IsEnabled="False"
+                                      HorizontalAlignment="Left" MinWidth="260" MinHeight="38"
+                                      TextSubmitted="OnDepthSubmitted">
+                                <ComboBoxItem x:Uid="CloneDepthFull" Tag="0" IsSelected="True" />
+                                <ComboBoxItem x:Uid="CloneDepth1" Tag="1" />
+                                <ComboBoxItem x:Uid="CloneDepth5" Tag="5" />
+                                <ComboBoxItem x:Uid="CloneDepth10" Tag="10" />
+                                <ComboBoxItem x:Uid="CloneDepth50" Tag="50" />
+                                <ComboBoxItem x:Uid="CloneDepth100" Tag="100" />
+                            </ComboBox>
+                            <TextBlock x:Uid="CloneDepthHint" Style="{StaticResource CaptionTextStyle}" />
+                        </StackPanel>
 
-                <!-- 分支（可选） -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="分支（可选）"
-                               FontSize="14"
-                               FontWeight="SemiBold" />
+                    </StackPanel>
+                </Border>
 
-                    <DropDownButton x:Name="BranchDropdown"
-                                    Content="默认分支"
-                                    IsEnabled="False"
-                                    HorizontalAlignment="Left"
-                                    MinWidth="260"
-                                    MinHeight="38">
-                        <DropDownButton.Flyout>
-                            <MenuFlyout x:Name="BranchMenu" Placement="Bottom" />
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-
-                    <TextBlock x:Name="BranchHint"
-                               Text="填完远程地址后自动加载分支"
-                               Style="{StaticResource CaptionTextStyle}" />
-                </StackPanel>
-
-                <!-- 克隆深度 -->
-                <StackPanel Spacing="6">
-                    <TextBlock Text="克隆深度"
-                               FontSize="14"
-                               FontWeight="SemiBold" />
-                    <ComboBox x:Name="DepthCombo"
-                              IsEditable="True"
-                              IsEnabled="False"
-                              HorizontalAlignment="Left"
-                              MinWidth="260"
-                              MinHeight="38"
-                              PlaceholderText="输入数字或选择预设"
-                              TextSubmitted="OnDepthSubmitted">
-                        <ComboBoxItem Content="完整历史（默认）" Tag="0" IsSelected="True" />
-                        <ComboBoxItem Content="最近 1 个提交（最快）" Tag="1" />
-                        <ComboBoxItem Content="最近 5 个提交" Tag="5" />
-                        <ComboBoxItem Content="最近 10 个提交" Tag="10" />
-                        <ComboBoxItem Content="最近 50 个提交" Tag="50" />
-                        <ComboBoxItem Content="最近 100 个提交" Tag="100" />
-                    </ComboBox>
-                    <TextBlock Text="也可直接输入数字，例如 20 表示只拉最近 20 个提交；0 表示完整历史"
-                               Style="{StaticResource CaptionTextStyle}" />
-                </StackPanel>
-
-                <!-- 进度条 -->
-                <ProgressBar x:Name="ProgressBar"
-                             Minimum="0"
-                             Maximum="100"
-                             Value="0"
-                             Visibility="Collapsed" />
-
-                <!-- 状态文字 -->
-                <TextBlock x:Name="StatusText"
-                           Style="{StaticResource CaptionTextStyle}"
-                           Visibility="Collapsed" />
+                <!-- 进度条与状态 -->
+                <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" Value="0" Visibility="Collapsed" />
+                <TextBlock x:Name="StatusText" Style="{StaticResource CaptionTextStyle}" Visibility="Collapsed" />
 
                 <!-- 按钮 -->
                 <StackPanel Orientation="Horizontal" Spacing="10">
-                    <Button x:Name="StartButton"
-                            Content="开始克隆"
-                            Click="OnStartClick"
-                            Style="{StaticResource PrimaryFormButtonStyle}" />
-
-                    <Button x:Name="CancelButton"
-                            Content="取消"
-                            Click="OnCancelClick"
-                            IsEnabled="False"
-                            Style="{StaticResource FormButtonStyle}" />
+                    <Button x:Name="StartButton" x:Uid="CloneStart" Click="OnStartClick" Style="{StaticResource PrimaryFormButtonStyle}" />
+                    <Button x:Name="CancelButton" x:Uid="CommonCancel" Click="OnCancelClick" IsEnabled="False" Style="{StaticResource FormButtonStyle}" />
                 </StackPanel>
 
             </StackPanel>

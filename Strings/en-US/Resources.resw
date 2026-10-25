@@ -59,33 +59,35 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 
-  <!-- Common -->
-  <data name="AppTitle.Title" xml:space="preserve"><value>FluentGit</value></data>
+  <!-- ====== Common ====== -->
+  <data name="CommonCancel.Content" xml:space="preserve"><value>Cancel</value></data>
+  <data name="CommonRefresh.Content" xml:space="preserve"><value>Refresh</value></data>
+  <data name="CommonBrowse.Content" xml:space="preserve"><value>Browse...</value></data>
+  <data name="CommonNoRepo.Text" xml:space="preserve"><value>No repository is currently open. Please open a repository on the "Repository" page first.</value></data>
   <data name="CommonSuccess" xml:space="preserve"><value>Success</value></data>
   <data name="CommonError" xml:space="preserve"><value>Error</value></data>
   <data name="CommonWarning" xml:space="preserve"><value>Warning</value></data>
   <data name="CommonInfo" xml:space="preserve"><value>Info</value></data>
   <data name="CommonOK" xml:space="preserve"><value>OK</value></data>
-  <data name="CommonCancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="CommonClose" xml:space="preserve"><value>Close</value></data>
-  <data name="CommonRefresh" xml:space="preserve"><value>Refresh</value></data>
-  <data name="CommonBrowse.Content" xml:space="preserve"><value>Browse...</value></data>
-  <data name="CommonNoRepo" xml:space="preserve"><value>No repository opened. Please open one in the Repository page.</value></data>
 
-  <!-- Navigation -->
+  <!-- Left navigation -->
   <data name="NavRepo.Content" xml:space="preserve"><value>Repository</value></data>
   <data name="NavFile.Content" xml:space="preserve"><value>Files</value></data>
   <data name="NavHistory.Content" xml:space="preserve"><value>History</value></data>
   <data name="NavClone.Content" xml:space="preserve"><value>Clone</value></data>
   <data name="NavSettings.Content" xml:space="preserve"><value>Settings</value></data>
+  <data name="AppTitle.Title" xml:space="preserve"><value>FluentGit</value></data>
 
-  <!-- Repo Page -->
-  <data name="RepoInit.Content" xml:space="preserve"><value>Initialize Repo</value></data>
-  <data name="RepoOpen.Content" xml:space="preserve"><value>Open Repo</value></data>
-  <data name="RepoClone.Content" xml:space="preserve"><value>Clone Repo</value></data>
-  <data name="RepoPath.PlaceholderText" xml:space="preserve"><value>Select or enter a directory to initialize</value></data>
+  <!-- ====== Repository page ====== -->
+  <data name="RepoGettingStarted.Text" xml:space="preserve"><value>Getting Started</value></data>
+  <data name="RepoDownloadGit.Content" xml:space="preserve"><value>Download Git for Windows</value></data>
+  <data name="RepoInit.Content" xml:space="preserve"><value>Initialize Repository</value></data>
+  <data name="RepoOpen.Content" xml:space="preserve"><value>Open Repository</value></data>
+  <data name="RepoClone.Content" xml:space="preserve"><value>Clone Repository</value></data>
+  <data name="RepoPath.PlaceholderText" xml:space="preserve"><value>Select or enter a directory path to initialize</value></data>
   <data name="RepoBrowse.Content" xml:space="preserve"><value>Browse...</value></data>
-  <data name="RepoOpsTitle.Text" xml:space="preserve"><value>Repo Operations</value></data>
+  <data name="RepoOpsTitle.Text" xml:space="preserve"><value>Repository Operations</value></data>
   <data name="RepoPull.Content" xml:space="preserve"><value>Pull</value></data>
   <data name="RepoFetch.Content" xml:space="preserve"><value>Fetch</value></data>
   <data name="RepoPush.Content" xml:space="preserve"><value>Push</value></data>
@@ -94,76 +96,110 @@
   <data name="RepoAddAll.Content" xml:space="preserve"><value>Stage All</value></data>
   <data name="RepoCommit.Content" xml:space="preserve"><value>Commit</value></data>
   <data name="RepoRefreshStatus.Content" xml:space="preserve"><value>Refresh Status</value></data>
-  <data name="RepoGitNotFound.Text" xml:space="preserve"><value>Git not found, please install Git first</value></data>
-  <data name="RepoClean" xml:space="preserve"><value>Working tree clean</value></data>
+  <data name="RepoGitNotFound.Text" xml:space="preserve"><value>Git was not detected. Please install Git first.</value></data>
+
+  <data name="RepoClean" xml:space="preserve"><value>Working tree clean, no changes</value></data>
   <data name="RepoMod" xml:space="preserve"><value>Modified {0}</value></data>
   <data name="RepoAdd" xml:space="preserve"><value>Added {0}</value></data>
   <data name="RepoUntracked" xml:space="preserve"><value>Untracked {0}</value></data>
-  <!-- Repo Page C# internal -->
   <data name="RepoErrNoRepo" xml:space="preserve"><value>Please open a Git repository first!</value></data>
-  <data name="RepoErrGitPath" xml:space="preserve"><value>Git path invalid, please check settings!</value></data>
-  <data name="RepoErrActionFailed" xml:space="preserve"><value>Action failed: {0}</value></data>
+  <data name="RepoErrGitPath" xml:space="preserve"><value>Invalid Git path. Please check Settings!</value></data>
+  <data name="RepoErrActionFailed" xml:space="preserve"><value>Operation failed: {0}</value></data>
   <data name="RepoStatusPulling" xml:space="preserve"><value>Pulling updates, please wait...</value></data>
-  <data name="RepoStatusFetching" xml:space="preserve"><value>Fetching remote info...</value></data>
+  <data name="RepoStatusFetching" xml:space="preserve"><value>Fetching remote information...</value></data>
   <data name="RepoStatusPushing" xml:space="preserve"><value>Pushing to remote...</value></data>
   <data name="RepoErrNoCommitMsg" xml:space="preserve"><value>Please enter a commit message!</value></data>
   <data name="RepoErrInitPath" xml:space="preserve"><value>Please select or enter a directory path!</value></data>
-  <data name="RepoErrInitNotExist" xml:space="preserve"><value>Directory does not exist, please check the path!</value></data>
+  <data name="RepoErrInitNotExist" xml:space="preserve"><value>The directory does not exist. Please check the path!</value></data>
   <data name="RepoErrInitAlready" xml:space="preserve"><value>This directory is already a Git repository!</value></data>
   <data name="RepoInitSuccess" xml:space="preserve"><value>Repository initialized successfully: {0}</value></data>
-  <data name="RepoInitFailed" xml:space="preserve"><value>Initialization failed, please try again!</value></data>
-  <data name="RepoOpenSuccess" xml:space="preserve"><value>Opened repository: {0}</value></data>
+  <data name="RepoInitFailed" xml:space="preserve"><value>Initialization failed. Please try again!</value></data>
+  <data name="RepoOpenSuccess" xml:space="preserve"><value>Repository opened: {0}</value></data>
   <data name="RepoOpenNotGit" xml:space="preserve"><value>The selected directory is not a Git repository!</value></data>
-  <data name="RepoStatusUnopened" xml:space="preserve"><value>Repository not opened</value></data>
+  <data name="RepoStatusUnopened" xml:space="preserve"><value>No repository opened</value></data>
   <data name="RepoStatusReading" xml:space="preserve"><value>Reading changes...</value></data>
   <data name="RepoStatusReadFailed" xml:space="preserve"><value>Failed to read changes</value></data>
 
-  <!-- Settings Page -->
+  <!-- ====== Clone page ====== -->
+  <data name="CloneTitle.Text" xml:space="preserve"><value>Clone Repository</value></data>
+  <data name="CloneUrl.Header" xml:space="preserve"><value>Remote URL</value></data>
+  <data name="CloneUrl.PlaceholderText" xml:space="preserve"><value>https://github.com/user/repo.git</value></data>
+  <data name="ClonePath.Header" xml:space="preserve"><value>Target Directory</value></data>
+  <data name="ClonePath.PlaceholderText" xml:space="preserve"><value>Select or enter an empty directory</value></data>
+  <data name="CloneBranchHeader.Text" xml:space="preserve"><value>Branch (optional)</value></data>
+  <data name="CloneDepthHeader.Text" xml:space="preserve"><value>Clone Depth</value></data>
+  <data name="CloneDepthPlaceholder.PlaceholderText" xml:space="preserve"><value>Enter a number or select a preset</value></data>
+  <data name="CloneDepthHint.Text" xml:space="preserve"><value>You can also enter a number directly, e.g. 20 means fetch only the latest 20 commits; 0 means full history</value></data>
+  <data name="CloneStart.Content" xml:space="preserve"><value>Start Clone</value></data>
+  <data name="CloneDepthFull.Content" xml:space="preserve"><value>Full history (default)</value></data>
+  <data name="CloneDepth1.Content" xml:space="preserve"><value>Latest 1 commit (fastest)</value></data>
+  <data name="CloneDepth5.Content" xml:space="preserve"><value>Latest 5 commits</value></data>
+  <data name="CloneDepth10.Content" xml:space="preserve"><value>Latest 10 commits</value></data>
+  <data name="CloneDepth50.Content" xml:space="preserve"><value>Latest 50 commits</value></data>
+  <data name="CloneDepth100.Content" xml:space="preserve"><value>Latest 100 commits</value></data>
+  <data name="CloneDefaultBranch" xml:space="preserve"><value>Default branch</value></data>
+  <data name="CloneChecking" xml:space="preserve"><value>Checking...</value></data>
+  <data name="CloneLoading" xml:space="preserve"><value>Loading...</value></data>
+  <data name="CloneHintDefault" xml:space="preserve"><value>Branches will load automatically after entering the remote URL</value></data>
+  <data name="CloneHintChecking" xml:space="preserve"><value>Checking remote repository...</value></data>
+  <data name="CloneLoadedBranches" xml:space="preserve"><value>Loaded {0} branches</value></data>
+  <data name="CloneNoBranches" xml:space="preserve"><value>No branches were found. The URL may be invalid or there may be a network issue. The default branch will be used.</value></data>
+  <data name="CloneRecentCommits" xml:space="preserve"><value>Latest {0} commits</value></data>
+  <data name="CloneWarningDepthTitle" xml:space="preserve"><value>Clone depth exceeds actual commit count</value></data>
+  <data name="CloneWarningDepthMsg" xml:space="preserve"><value>You entered {0}, but the remote repository only has {1} commits. Git will automatically fetch all {1} commits without error.</value></data>
+  <data name="CloneStatusCloning" xml:space="preserve"><value>Cloning...</value></data>
+  <data name="CloneStatusSuccess" xml:space="preserve"><value>Clone succeeded: {0}</value></data>
+  <data name="CloneStatusFailed" xml:space="preserve"><value>Clone failed</value></data>
+  <data name="CloneStatusCancelled" xml:space="preserve"><value>Clone cancelled</value></data>
+  <data name="CloneErrGitPath" xml:space="preserve"><value>Invalid Git path. Please check the Settings page.</value></data>
+  <data name="CloneErrUrl" xml:space="preserve"><value>Please enter the remote URL.</value></data>
+  <data name="CloneErrPath" xml:space="preserve"><value>Please select a target directory.</value></data>
+
+  <!-- ====== Settings page ====== -->
   <data name="SettingsTitle.Text" xml:space="preserve"><value>Settings</value></data>
   <data name="SettingsSearchBox.PlaceholderText" xml:space="preserve"><value>Search settings</value></data>
   <data name="SettingsNoResult.Text" xml:space="preserve"><value>No matching settings found</value></data>
   <data name="SettingsLanguage.Text" xml:space="preserve"><value>Language</value></data>
-  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>Select App Language (Requires restart)</value></data>
+  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>Select the app language (restart required after change)</value></data>
   <data name="SettingsTheme.Text" xml:space="preserve"><value>Appearance</value></data>
-  <data name="SettingsBackdrop.Text" xml:space="preserve"><value>Window Backdrop</value></data>
-  <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git Installation Path</value></data>
-  <data name="SettingsFilterArtifacts.Content" xml:space="preserve"><value>Filter build artifacts / temp files</value></data>
-  <!-- Settings Page C# internal -->
+  <data name="SettingsBackdrop.Text" xml:space="preserve"><value>Window backdrop effect</value></data>
+  <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git installation path</value></data>
+  <data name="SettingsFilterArtifacts.Content" xml:space="preserve"><value>Filter build artifacts / temporary files</value></data>
   <data name="SettingsGitGroup.Text" xml:space="preserve"><value>Git Management</value></data>
-  <data name="SettingsTreeViewGroup.Text" xml:space="preserve"><value>Tree View Options</value></data>
-  <data name="SettingsFilterDesc.Text" xml:space="preserve"><value>Hide build artifacts and dependencies (e.g., bin, obj, node_modules) in the directory tree</value></data>
+  <data name="SettingsTreeViewGroup.Text" xml:space="preserve"><value>Tree view display options</value></data>
+  <data name="SettingsFilterDesc.Text" xml:space="preserve"><value>Hide build artifacts and dependency directories such as bin, obj, node_modules, __pycache__, etc. in the directory tree</value></data>
   <data name="SettingsGitSearching" xml:space="preserve"><value>Searching for Git...</value></data>
-  <data name="SettingsGitCurrentPath" xml:space="preserve"><value>Current Git Path: {0}</value></data>
-  <data name="SettingsGitNoPath" xml:space="preserve"><value>Current path: None</value></data>
+  <data name="SettingsGitCurrentPath" xml:space="preserve"><value>Current Git path: {0}</value></data>
+  <data name="SettingsGitNoPath" xml:space="preserve"><value>Currently selected path: None</value></data>
   <data name="SettingsGitVersion" xml:space="preserve"><value>Version: {0}</value></data>
-  <data name="SettingsBackdropDefault" xml:space="preserve"><value>Follow System</value></data>
-  <data name="SettingsBackdropAcrylic" xml:space="preserve"><value>Acrylic</value></data>
-  <data name="SettingsBackdropNone" xml:space="preserve"><value>Solid Color</value></data>
+  <data name="SettingsBackdropDefault" xml:space="preserve"><value>Follow system</value></data>
+  <data name="SettingsBackdropAcrylic" xml:space="preserve"><value>Acrylic (frosted glass)</value></data>
+  <data name="SettingsBackdropNone" xml:space="preserve"><value>Solid color</value></data>
   <data name="SettingsBackdropMica" xml:space="preserve"><value>Mica</value></data>
-  <data name="SettingsHintDefaultOk" xml:space="preserve"><value>Automatically selects the best effect. Mica is supported.</value></data>
-  <data name="SettingsHintDefaultFail" xml:space="preserve"><value>Automatically selects the best effect. Mica is not supported, falling back to solid color.</value></data>
-  <data name="SettingsHintMicaOk" xml:space="preserve"><value>Mica is supported. Samples desktop wallpaper colors with low performance overhead.</value></data>
-  <data name="SettingsHintMicaFail" xml:space="preserve"><value>Mica is not supported, falling back to solid color.</value></data>
-  <data name="SettingsHintAcrylicOk" xml:space="preserve"><value>Acrylic is supported. Real-time blur with higher performance overhead.</value></data>
-  <data name="SettingsHintAcrylicFail" xml:space="preserve"><value>Acrylic is not supported, falling back to solid color.</value></data>
-  <data name="SettingsHintNone" xml:space="preserve"><value>Solid color background, best performance.</value></data>
-  <data name="SettingsToastFilterOn" xml:space="preserve"><value>Enabled artifact filtering</value></data>
-  <data name="SettingsToastFilterOff" xml:space="preserve"><value>Disabled artifact filtering</value></data>
+  <data name="SettingsHintDefaultOk" xml:space="preserve"><value>Automatically choose the best effect based on the system. The current system supports Mica.</value></data>
+  <data name="SettingsHintDefaultFail" xml:space="preserve"><value>Automatically choose the best effect based on the system. The current system does not support Mica; a solid color background will be used.</value></data>
+  <data name="SettingsHintMicaOk" xml:space="preserve"><value>The current system supports Mica. Samples the desktop wallpaper color with low performance overhead.</value></data>
+  <data name="SettingsHintMicaFail" xml:space="preserve"><value>The current system does not support Mica; falling back to a solid color background.</value></data>
+  <data name="SettingsHintAcrylicOk" xml:space="preserve"><value>The current system supports Acrylic. Blurs the content behind the window in real time with higher performance overhead.</value></data>
+  <data name="SettingsHintAcrylicFail" xml:space="preserve"><value>The current system does not support Acrylic; falling back to a solid color background.</value></data>
+  <data name="SettingsHintNone" xml:space="preserve"><value>Uses a solid color background for the best performance.</value></data>
+  <data name="SettingsToastFilterOn" xml:space="preserve"><value>Build artifact filtering enabled</value></data>
+  <data name="SettingsToastFilterOff" xml:space="preserve"><value>Build artifact filtering disabled</value></data>
   <data name="SettingsToastSettingsUpdated" xml:space="preserve"><value>Settings updated</value></data>
-  <data name="SettingsToastBackdropChanged" xml:space="preserve"><value>Window backdrop changed to \"{0}\"</value></data>
+  <data name="SettingsToastBackdropChanged" xml:space="preserve"><value>Window backdrop changed to "{0}"</value></data>
   <data name="SettingsToastAppearanceUpdated" xml:space="preserve"><value>Appearance updated</value></data>
-  <data name="SettingsToastGitNotFound" xml:space="preserve"><value>Git not found, please install Git for Windows</value></data>
-  <data name="SettingsToastGitInvalid" xml:space="preserve"><value>Git signature validation failed, may not be an official version</value></data>
-  <data name="SettingsToastGitFound" xml:space="preserve"><value>Found Git: {0}</value></data>
+  <data name="SettingsToastGitNotFound" xml:space="preserve"><value>Git not found. Please install Git for Windows first.</value></data>
+  <data name="SettingsToastGitInvalid" xml:space="preserve"><value>The found Git failed signature verification and may not be the official version.</value></data>
+  <data name="SettingsToastGitFound" xml:space="preserve"><value>Git found: {0}</value></data>
   <data name="SettingsToastSearchError" xml:space="preserve"><value>Search error: {0}</value></data>
   <data name="SettingsSearchTitleLanguage" xml:space="preserve"><value>Language Settings</value></data>
-  <data name="SettingsSearchTitleGit" xml:space="preserve"><value>Git Installation Path</value></data>
-  <data name="SettingsSearchTitleBackdrop" xml:space="preserve"><value>Window Backdrop</value></data>
-  <data name="SettingsSearchTitleFilter" xml:space="preserve"><value>Filter build artifacts / temp files</value></data>
+  <data name="SettingsSearchTitleGit" xml:space="preserve"><value>Git installation path</value></data>
+  <data name="SettingsSearchTitleBackdrop" xml:space="preserve"><value>Window backdrop effect</value></data>
+  <data name="SettingsSearchTitleFilter" xml:space="preserve"><value>Filter build artifacts / temporary files</value></data>
 
-  <!-- History Page -->
+  <!-- ====== History page ====== -->
   <data name="HistoryTitle.Text" xml:space="preserve"><value>Commit History</value></data>
-  <data name="HistoryEmpty.Text" xml:space="preserve"><value>No commits in this repository yet.</value></data>
+  <data name="HistoryEmpty.Text" xml:space="preserve"><value>This repository has no commits yet.</value></data>
   <data name="HistoryCopyHash.Text" xml:space="preserve"><value>Copy Full Hash</value></data>
   <data name="HistoryCopyShortHash.Text" xml:space="preserve"><value>Copy Short Hash</value></data>
   <data name="HistoryCopyMsg.Text" xml:space="preserve"><value>Copy Commit Message</value></data>
@@ -175,52 +211,16 @@
   <data name="HistoryDetailEmail" xml:space="preserve"><value>Email</value></data>
   <data name="HistoryDetailTime" xml:space="preserve"><value>Time</value></data>
   <data name="HistoryDetailRelative" xml:space="preserve"><value>Relative</value></data>
-  <data name="HistoryDetailMsg" xml:space="preserve"><value>Message</value></data>
-  <data name="HistoryTooltipCopyHash" xml:space="preserve"><value>Click to copy full Hash</value></data>
-  <data name="HistoryErrGitPath" xml:space="preserve"><value>Git path invalid, please check settings.</value></data>
+  <data name="HistoryDetailMsg" xml:space="preserve"><value>Commit Message</value></data>
+  <data name="HistoryErrGitPath" xml:space="preserve"><value>Invalid Git path. Please check the Settings page.</value></data>
 
-  <!-- File Page -->
+  <!-- ====== File page ====== -->
   <data name="FileTitle.Text" xml:space="preserve"><value>File Browser</value></data>
   <data name="FileOpen.Text" xml:space="preserve"><value>Open</value></data>
   <data name="FileOpenTerminal.Text" xml:space="preserve"><value>Open in Terminal</value></data>
   <data name="FileOpenExplorer.Text" xml:space="preserve"><value>Open in File Explorer</value></data>
   <data name="FileCopyPath.Text" xml:space="preserve"><value>Copy Full Path</value></data>
   <data name="FileCopyName.Text" xml:space="preserve"><value>Copy Name</value></data>
-  <data name="FileRefreshTree.Text" xml:space="preserve"><value>Refresh Tree</value></data>
+  <data name="FileRefreshTree.Text" xml:space="preserve"><value>Refresh Directory Tree</value></data>
   <data name="FileRepoRoot" xml:space="preserve"><value>{0} (Repository)</value></data>
-
-  <!-- Clone Page -->
-  <data name="CloneTitle.Text" xml:space="preserve"><value>Clone Repository</value></data>
-  <data name="CloneUrl.Header" xml:space="preserve"><value>Remote URL</value></data>
-  <data name="CloneUrl.PlaceholderText" xml:space="preserve"><value>https://github.com/user/repo.git</value></data>
-  <data name="ClonePath.Header" xml:space="preserve"><value>Target Directory</value></data>
-  <data name="ClonePath.PlaceholderText" xml:space="preserve"><value>Select or enter an empty directory</value></data>
-  <data name="CloneBranchHeader.Text" xml:space="preserve"><value>Branch (Optional)</value></data>
-  <data name="CloneDepthHeader.Text" xml:space="preserve"><value>Clone Depth</value></data>
-  <data name="CloneDepthPlaceholder.PlaceholderText" xml:space="preserve"><value>Enter number or select preset</value></data>
-  <data name="CloneDepthHint.Text" xml:space="preserve"><value>You can also enter a number directly, e.g., 20 means only the last 20 commits; 0 means full history</value></data>
-  <data name="CloneStart.Content" xml:space="preserve"><value>Start Clone</value></data>
-  <data name="CloneDefaultBranch" xml:space="preserve"><value>Default Branch</value></data>
-  <data name="CloneChecking" xml:space="preserve"><value>Checking...</value></data>
-  <data name="CloneLoading" xml:space="preserve"><value>Loading...</value></data>
-  <data name="CloneHintDefault" xml:space="preserve"><value>Branches will be automatically loaded after entering the remote URL</value></data>
-  <data name="CloneHintChecking" xml:space="preserve"><value>Checking remote repository...</value></data>
-  <data name="CloneDepthFull.Content" xml:space="preserve"><value>Full history (default)</value></data>
-  <data name="CloneDepth1.Content" xml:space="preserve"><value>Last 1 commit (fastest)</value></data>
-  <data name="CloneDepth5.Content" xml:space="preserve"><value>Last 5 commits</value></data>
-  <data name="CloneDepth10.Content" xml:space="preserve"><value>Last 10 commits</value></data>
-  <data name="CloneDepth50.Content" xml:space="preserve"><value>Last 50 commits</value></data>
-  <data name="CloneDepth100.Content" xml:space="preserve"><value>Last 100 commits</value></data>
-  <data name="CloneLoadedBranches" xml:space="preserve"><value>Loaded {0} branches</value></data>
-  <data name="CloneNoBranches" xml:space="preserve"><value>No branches found. The URL or network might be invalid. Falling back to default branch.</value></data>
-  <data name="CloneRecentCommits" xml:space="preserve"><value>Last {0} commits</value></data>
-  <data name="CloneWarningDepthTitle" xml:space="preserve"><value>Clone depth exceeds commit count</value></data>
-  <data name="CloneWarningDepthMsg" xml:space="preserve"><value>You entered {0}, but the remote only has {1} commits. Git will pull all {1} commits without error.</value></data>
-  <data name="CloneStatusCloning" xml:space="preserve"><value>Cloning...</value></data>
-  <data name="CloneStatusSuccess" xml:space="preserve"><value>Cloned successfully: {0}</value></data>
-  <data name="CloneStatusFailed" xml:space="preserve"><value>Clone failed</value></data>
-  <data name="CloneStatusCancelled" xml:space="preserve"><value>Clone cancelled</value></data>
-  <data name="CloneErrGitPath" xml:space="preserve"><value>Git path invalid, please check settings.</value></data>
-  <data name="CloneErrUrl" xml:space="preserve"><value>Please enter a remote URL.</value></data>
-  <data name="CloneErrPath" xml:space="preserve"><value>Please select a target directory.</value></data>
 </root>

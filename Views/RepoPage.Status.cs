@@ -9,6 +9,7 @@ namespace FluentGit.Views;
 
 public sealed partial class RepoPage
 {
+    // ========== 刷新变更状态 ==========
     private async void RefreshChangeStatus()
     {
         var repoPath = AppState.CurrentRepoPath;
@@ -52,6 +53,7 @@ public sealed partial class RepoPage
         }
     }
 
+    // ========== 更新界面状态 ==========
     private void UpdateCloneUI()
     {
         var repoPath = AppState.CurrentRepoPath;

@@ -4,16 +4,10 @@ using System.Text;
 
 namespace FluentGit.Services;
 
-/// <summary>
-/// 崩溃日志落盘。只在未处理异常时调用，正常流程不写文件。
-/// 输出目录：%LocalAppData%\FluentGit\logs\crash-yyyyMMdd-HHmmss.log
-/// </summary>
 public static class CrashLogger
 {
-    private static readonly string LogDir = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "FluentGit",
-        "logs");
+    // 修改这里
+    private static readonly string LogDir = Path.Combine(AppContext.BaseDirectory, "Setting", "logs");
 
     private static readonly object _lock = new();
 
@@ -42,7 +36,6 @@ public static class CrashLogger
         }
         catch
         {
-            // 崩溃日志器自己崩溃了，无路可走，只能吞掉
         }
     }
 }

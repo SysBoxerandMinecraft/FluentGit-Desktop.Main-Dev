@@ -9,6 +9,7 @@
     <RootNamespace>FluentGit</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <AppxDefaultResourceQualifiers>Language=zh-CN;en-US;zh-TW</AppxDefaultResourceQualifiers>
 
     <!-- 只保留 x64 和 ARM64 -->
     <Platforms>x64;ARM64</Platforms>
@@ -104,9 +105,6 @@
     <Content Remove="Assets\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Strings\**\*.resw" />
-  </ItemGroup>
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>

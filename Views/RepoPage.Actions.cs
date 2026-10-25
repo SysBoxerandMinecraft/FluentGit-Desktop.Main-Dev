@@ -9,6 +9,7 @@ namespace FluentGit.Views;
 
 public sealed partial class RepoPage
 {
+    // ========== 通用 Git 操作执行器 ==========
     private async Task ExecuteGitOperationAsync(
         string operationName,
         Func<string, string, Task<(bool Success, string Message)>> action,
@@ -62,6 +63,7 @@ public sealed partial class RepoPage
         }
     }
 
+    // ========== 初始化仓库 ==========
     private void OnInitRepository(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
@@ -116,6 +118,7 @@ public sealed partial class RepoPage
         }
     }
 
+    // ========== 打开仓库 ==========
     private async void OnOpenRepo(object sender, RoutedEventArgs e)
     {
         if (_isBusy) return;
@@ -159,6 +162,7 @@ public sealed partial class RepoPage
         }
     }
 
+    // ========== 拉取更新 ==========
     private async void OnPullRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -171,6 +175,7 @@ public sealed partial class RepoPage
             startMessage: Loc.GetString("RepoStatusPulling"));
     }
 
+    // ========== 获取远程信息 ==========
     private async void OnFetchRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -183,6 +188,7 @@ public sealed partial class RepoPage
             startMessage: Loc.GetString("RepoStatusFetching"));
     }
 
+    // ========== 全部暂存 ==========
     private async void OnAddAll(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(
@@ -195,6 +201,7 @@ public sealed partial class RepoPage
             onSuccess: RefreshChangeStatus);
     }
 
+    // ========== 提交 ==========
     private async void OnCommit(object sender, RoutedEventArgs e)
     {
         string message = CommitMessageTextBox.Text.Trim();
@@ -218,11 +225,13 @@ public sealed partial class RepoPage
             });
     }
 
+    // ========== 刷新变更状态（点击事件） ==========
     private void OnRefreshChangeStatus(object sender, RoutedEventArgs e)
     {
         RefreshChangeStatus();
     }
 
+    // ========== 推送 ==========
     private async void OnPushRepository(object sender, RoutedEventArgs e)
     {
         await ExecuteGitOperationAsync(

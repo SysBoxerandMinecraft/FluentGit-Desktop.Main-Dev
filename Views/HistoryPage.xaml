@@ -6,147 +6,66 @@
       xmlns:services="using:FluentGit.Services"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
-    <Grid Margin="30,90,30,30">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- 顶部标题栏 -->
-        <Grid Grid.Row="0" Margin="0,0,0,15">
+        <Grid Grid.Row="0" Margin="30,24,30,12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0"
-                       Text="提交历史"
-                       FontSize="24"
-                       FontWeight="SemiBold"
-                       VerticalAlignment="Center" />
-
-            <StackPanel Grid.Column="1"
-                        Orientation="Horizontal"
-                        Spacing="10"
-                        VerticalAlignment="Center">
-                <ProgressRing x:Name="LoadingRing"
-                              IsActive="False"
-                              Width="20" Height="20"
-                              Visibility="Collapsed" />
-                <Button x:Name="RefreshButton"
-                        Content="刷新"
-                        Click="OnRefreshClick" />
+            <TextBlock Grid.Column="0" x:Uid="HistoryTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <ProgressRing x:Name="LoadingRing" IsActive="False" Width="20" Height="20" Visibility="Collapsed" />
+                <Button x:Name="RefreshButton" x:Uid="CommonRefresh" Click="OnRefreshClick" Style="{StaticResource FormButtonStyle}" />
             </StackPanel>
         </Grid>
 
-        <!-- 未打开仓库提示 -->
-        <TextBlock x:Name="NoRepoText"
-                   Grid.Row="1"
-                   Text="尚未打开任何仓库，请先到「仓库」页面打开一个仓库。"
-                   Foreground="Gray"
-                   Visibility="Visible" />
-
-        <!-- 空仓库提示 -->
-        <TextBlock x:Name="EmptyText"
-                   Grid.Row="1"
-                   Text="该仓库还没有任何提交记录。"
-                   Foreground="Gray"
-                   Visibility="Collapsed" />
-
-        <!-- 提交列表 -->
-        <ListView x:Name="LogListView"
-                  Grid.Row="1"
-                  Visibility="Collapsed"
-                  SelectionMode="Single"
-                  IsItemClickEnabled="True"
-                  ItemClick="OnCommitItemClick">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="services:GitCommit">
-                    <Grid Padding="8,8"
-                          ColumnSpacing="12"
-                          Background="Transparent"
-                          RightTapped="OnItemRightTapped">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <!-- 短 hash：可点击复制 -->
-                        <Button Grid.Column="0"
-                                Click="OnHashClick"
-                                Tag="{x:Bind Hash}"
-                                Padding="6,2"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="4"
-                                VerticalAlignment="Center"
-                                ToolTipService.ToolTip="点击复制完整 Hash">
-                            <TextBlock Text="{x:Bind ShortHash}"
-                                       FontFamily="Consolas"
-                                       FontSize="12"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                        </Button>
-
-                        <!-- commit message -->
-                        <TextBlock Grid.Column="1"
-                                   Text="{x:Bind Message}"
-                                   TextTrimming="CharacterEllipsis"
-                                   VerticalAlignment="Center" />
-
-                        <!-- 作者 + 时间 -->
-                        <StackPanel Grid.Column="2"
-                                    Orientation="Horizontal"
-                                    Spacing="12"
-                                    VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind Author}"
-                                       FontSize="12"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-                            <TextBlock Text="{x:Bind RelativeTime}"
-                                       FontSize="12"
-                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                       MinWidth="80"
-                                       ToolTipService.ToolTip="{x:Bind DateDisplay}" />
-                        </StackPanel>
-
-                        <!-- 右键菜单 -->
-                        <Grid.ContextFlyout>
-                            <MenuFlyout>
-                                <MenuFlyoutItem Text="复制完整 Hash"
-                                                Click="OnCopyHashClick"
-                                                Tag="{x:Bind Hash}">
-                                    <MenuFlyoutItem.Icon>
-                                        <SymbolIcon Symbol="Copy" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                                <MenuFlyoutItem Text="复制短 Hash"
-                                                Click="OnCopyShortHashClick"
-                                                Tag="{x:Bind ShortHash}">
-                                    <MenuFlyoutItem.Icon>
-                                        <SymbolIcon Symbol="Copy" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="复制提交信息"
-                                                Click="OnCopyMessageClick"
-                                                Tag="{x:Bind Message}">
-                                    <MenuFlyoutItem.Icon>
-                                        <SymbolIcon Symbol="Copy" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="查看详情"
-                                                Click="OnViewDetailClick">
-                                    <MenuFlyoutItem.Icon>
-                                        <SymbolIcon Symbol="View" />
-                                    </MenuFlyoutItem.Icon>
-                                </MenuFlyoutItem>
-                            </MenuFlyout>
-                        </Grid.ContextFlyout>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid Grid.Row="1" Margin="30,6,30,30">
+            <TextBlock x:Name="NoRepoText" x:Uid="CommonNoRepo" Foreground="Gray" Visibility="Visible" />
+            <TextBlock x:Name="EmptyText" x:Uid="HistoryEmpty" Foreground="Gray" Visibility="Collapsed" />
+            <ListView x:Name="LogListView" Visibility="Collapsed" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="OnCommitItemClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="services:GitCommit">
+                        <Grid Padding="8,8" ColumnSpacing="12" Background="Transparent" RightTapped="OnItemRightTapped">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Click="OnHashClick" Tag="{x:Bind Hash}" Padding="6,2" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="4" VerticalAlignment="Center" ToolTipService.ToolTip="{x:Bind ShortHash}">
+                                <TextBlock Text="{x:Bind ShortHash}" FontFamily="Consolas" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            </Button>
+                            <TextBlock Grid.Column="1" Text="{x:Bind Message}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                                <TextBlock Text="{x:Bind Author}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                                <TextBlock Text="{x:Bind RelativeTime}" FontSize="12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" MinWidth="80" ToolTipService.ToolTip="{x:Bind DateDisplay}" />
+                            </StackPanel>
+                            <Grid.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Uid="HistoryCopyHash" Click="OnCopyHashClick" Tag="{x:Bind Hash}">
+                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutItem x:Uid="HistoryCopyShortHash" Click="OnCopyShortHashClick" Tag="{x:Bind ShortHash}">
+                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem x:Uid="HistoryCopyMsg" Click="OnCopyMessageClick" Tag="{x:Bind Message}">
+                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem x:Uid="HistoryViewDetail" Click="OnViewDetailClick">
+                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="View" /></MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                </MenuFlyout>
+                            </Grid.ContextFlyout>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

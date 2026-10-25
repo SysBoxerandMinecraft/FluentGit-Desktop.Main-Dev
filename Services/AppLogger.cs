@@ -5,18 +5,12 @@ using System.Text;
 
 namespace FluentGit.Services;
 
-/// <summary>
-/// 统一日志输出。同时写 Debug 输出和文件，方便 Run.ps1 tail。
-/// 日志文件：%LocalAppData%\FluentGit\logs\app.log
-/// </summary>
 public static class AppLogger
 {
     private const string Prefix = "[FluentGit]";
 
-    private static readonly string LogDir = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-        "FluentGit", "logs");
-
+    // 修改这里：写到程序目录 Setting\logs 下
+    private static readonly string LogDir = Path.Combine(AppContext.BaseDirectory, "Setting", "logs");
     private static readonly string LogFile = Path.Combine(LogDir, "app.log");
 
     private static readonly object _lock = new();
@@ -43,10 +37,11 @@ public static class AppLogger
     {
         string line = $"{Prefix} [{level}] [{tag}] {message}";
 
-        // 1. Debug 输出（VS / DebugView 可见）
+        // 输出到 VS 调试窗口
         Debug.WriteLine(line);
+        // 输出到终端控制台
+        Console.WriteLine(line);
 
-        // 2. 文件输出（Run.ps1 tail 可见）
         if (!_fileLoggingEnabled) return;
 
         try
@@ -59,7 +54,7 @@ public static class AppLogger
         }
         catch
         {
-            // 日志写入失败不再抛，避免死循环
+            // 忽略日志写入失败
         }
     }
 }

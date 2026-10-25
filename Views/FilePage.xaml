@@ -6,41 +6,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
-    <Grid Margin="30,90,30,30">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Uid="FileTitle"
-                   FontSize="24"
-                   FontWeight="SemiBold"
-                   Margin="0,0,0,15" />
+        <Grid Grid.Row="0" Margin="30,24,30,12">
+            <TextBlock x:Uid="FileTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
+        </Grid>
 
-        <TextBlock x:Name="NoRepoText"
-                   Grid.Row="1"
-                   x:Uid="CommonNoRepo"
-                   Foreground="Gray" />
-
-        <TreeView x:Name="DirectoryTreeView"
-                  Grid.Row="1"
-                  Visibility="Collapsed"
-                  SelectionMode="Single"
-                  ItemInvoked="DirectoryTreeView_ItemInvoked"
-                  RightTapped="DirectoryTreeView_RightTapped"
-                  Expanding="DirectoryTreeView_Expanding">
-            <TreeView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="20">
-                        <Image Width="12" Height="12"
-                               Source="{Binding Content.IconSource}"
-                               Stretch="Uniform" />
-                        <TextBlock Text="{Binding Content.Name}"
-                                   VerticalAlignment="Center"
-                                   FontSize="13" />
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <Grid Grid.Row="1" Margin="30,6,30,30">
+            <TextBlock x:Name="NoRepoText" x:Uid="CommonNoRepo" Foreground="Gray" />
+            <TreeView x:Name="DirectoryTreeView" Visibility="Collapsed" SelectionMode="Single" ItemInvoked="DirectoryTreeView_ItemInvoked" RightTapped="DirectoryTreeView_RightTapped" Expanding="DirectoryTreeView_Expanding">
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="8" MinHeight="20">
+                            <Image Width="14" Height="14" Source="{Binding Content.IconSource}" Stretch="Uniform" />
+                            <TextBlock Text="{Binding Content.Name}" VerticalAlignment="Center" FontSize="14" />
+                        </StackPanel>
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
     </Grid>
 </Page>

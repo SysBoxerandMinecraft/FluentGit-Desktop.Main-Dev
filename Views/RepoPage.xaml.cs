@@ -12,7 +12,6 @@ public sealed partial class RepoPage : Page
     private const string TAG = "RepoPage";
     private CancellationTokenSource? _infoBarCts;
     private bool _isInfoBarAnimating = false;
-
     private bool _isBusy = false;
 
     public RepoPage()

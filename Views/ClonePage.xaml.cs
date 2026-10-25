@@ -16,48 +16,40 @@ public sealed partial class ClonePage : Page
     private CancellationTokenSource? _cts;
     private bool _isCloning = false;
 
-    // ========== 分支相关状态 ==========
     private string? _selectedBranch = null;
     private string _lastFetchedUrl = "";
     private bool _isFetchingBranches = false;
     private DispatcherQueueTimer? _urlDebounceTimer;
-    private int _totalCommits = -1;   // 远程总提交数，-1 表示未知
+    private int _totalCommits = -1;
 
     public ClonePage()
     {
         InitializeComponent();
+        BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
+        BranchHint.Text = Loc.GetString("CloneHintDefault");
     }
 
-    // ============================================================
-    //  URL 文本变化：先禁用，防抖后检查远程，检查完再启用
-    // ============================================================
     private void OnUrlTextChanged(object sender, TextChangedEventArgs e)
     {
-        // URL 变了，关掉所有警告
         WarningBar.IsOpen = false;
-
         string currentUrl = UrlBox.Text.Trim();
 
-        // 1. URL 变了，先禁用两个控件
         BranchDropdown.IsEnabled = false;
         DepthCombo.IsEnabled = false;
 
-        // 2. URL 为空，回到初始提示
         if (string.IsNullOrEmpty(currentUrl))
         {
-            BranchDropdown.Content = "默认分支";
-            BranchHint.Text = "填完远程地址后自动加载分支";
+            BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
+            BranchHint.Text = Loc.GetString("CloneHintDefault");
             _lastFetchedUrl = "";
             _selectedBranch = null;
             _totalCommits = -1;
             return;
         }
 
-        // 3. 检查中的提示
-        BranchDropdown.Content = "检查中...";
-        BranchHint.Text = "正在检查远程仓库...";
+        BranchDropdown.Content = Loc.GetString("CloneChecking");
+        BranchHint.Text = Loc.GetString("CloneHintChecking");
 
-        // 4. 懒创建防抖计时器
         if (_urlDebounceTimer == null)
         {
             _urlDebounceTimer = DispatcherQueue.CreateTimer();
@@ -70,8 +62,8 @@ public sealed partial class ClonePage : Page
                 {
                     BranchDropdown.IsEnabled = false;
                     DepthCombo.IsEnabled = false;
-                    BranchDropdown.Content = "默认分支";
-                    BranchHint.Text = "填完远程地址后自动加载分支";
+                    BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
+                    BranchHint.Text = Loc.GetString("CloneHintDefault");
                     _lastFetchedUrl = "";
                     _totalCommits = -1;
                     return;
@@ -88,14 +80,10 @@ public sealed partial class ClonePage : Page
             };
         }
 
-        // 5. 重置计时器，等用户停手 800ms 后才真正发请求
         _urlDebounceTimer.Stop();
         _urlDebounceTimer.Start();
     }
 
-    // ============================================================
-    //  拉取远程分支，填充下拉菜单
-    // ============================================================
     private async Task FetchBranchesAsync(string url)
     {
         if (_isFetchingBranches) return;
@@ -107,27 +95,24 @@ public sealed partial class ClonePage : Page
             string? gitPath = settings.GitPath;
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
-                BranchHint.Text = "Git 路径无效，请到设置页检查";
+                BranchHint.Text = Loc.GetString("CloneErrGitPath");
                 return;
             }
 
             BranchMenu.Items.Clear();
-            BranchDropdown.Content = "加载中...";
+            BranchDropdown.Content = Loc.GetString("CloneLoading");
             BranchDropdown.IsEnabled = false;
             DepthCombo.IsEnabled = false;
-            BranchHint.Text = $"正在加载 {url} 的分支列表...";
+            BranchHint.Text = $"{Loc.GetString("CloneLoading")} {url}...";
 
             var branches = await GitService.GetRemoteBranchesAsync(gitPath, url);
             _lastFetchedUrl = url;
-
-            // 顺便查一次总提交数（仅 GitHub 有效，其它返回 -1）
             _totalCommits = await GitService.GetRemoteCommitCountAsync(url);
 
             BranchMenu.Items.Clear();
 
-            // 第一项：默认分支
-            var defaultItem = new MenuFlyoutItem { Text = "（默认分支）" };
-            defaultItem.Click += (_, _) => SelectBranch(null, "默认分支");
+            var defaultItem = new MenuFlyoutItem { Text = $"({Loc.GetString("CloneDefaultBranch")})" };
+            defaultItem.Click += (_, _) => SelectBranch(null, Loc.GetString("CloneDefaultBranch"));
             BranchMenu.Items.Add(defaultItem);
 
             if (branches.Count > 0)
@@ -142,40 +127,38 @@ public sealed partial class ClonePage : Page
                     BranchMenu.Items.Add(item);
                 }
 
-                BranchHint.Text = $"已加载 {branches.Count} 个分支";
+                BranchHint.Text = string.Format(Loc.GetString("CloneLoadedBranches"), branches.Count);
             }
             else
             {
                 BranchMenu.Items.Add(new MenuFlyoutSeparator());
-                var emptyItem = new MenuFlyoutItem { Text = "（未获取到分支）" };
+                var emptyItem = new MenuFlyoutItem { Text = "()" };
                 emptyItem.IsEnabled = false;
                 BranchMenu.Items.Add(emptyItem);
 
-                BranchHint.Text = "未获取到分支，可能是地址无效或网络问题，将使用默认分支";
+                BranchHint.Text = Loc.GetString("CloneNoBranches");
             }
 
-            // 检查完毕，启用两个控件
             BranchDropdown.IsEnabled = true;
             DepthCombo.IsEnabled = true;
 
-            if (_selectedBranch != null &&
-                branches.Contains(_selectedBranch, StringComparer.OrdinalIgnoreCase))
+            if (_selectedBranch != null && branches.Contains(_selectedBranch, StringComparer.OrdinalIgnoreCase))
             {
                 BranchDropdown.Content = _selectedBranch;
             }
             else
             {
                 _selectedBranch = null;
-                BranchDropdown.Content = "默认分支";
+                BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"加载分支失败: {ex.Message}");
-            BranchDropdown.Content = "默认分支";
+            BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
             BranchDropdown.IsEnabled = true;
             DepthCombo.IsEnabled = true;
-            BranchHint.Text = "加载分支失败，将使用默认分支";
+            BranchHint.Text = Loc.GetString("CloneNoBranches");
         }
         finally
         {
@@ -183,9 +166,6 @@ public sealed partial class ClonePage : Page
         }
     }
 
-    // ============================================================
-    //  用户从下拉菜单选择分支
-    // ============================================================
     private void SelectBranch(string? branch, string display)
     {
         _selectedBranch = branch;
@@ -193,9 +173,6 @@ public sealed partial class ClonePage : Page
         AppLogger.Info(TAG, $"选择分支: {branch ?? "(默认)"}");
     }
 
-    // ============================================================
-    //  克隆深度：用户按回车提交自定义数字
-    // ============================================================
     private void OnDepthSubmitted(ComboBox sender, ComboBoxTextSubmittedEventArgs args)
     {
         string text = args.Text?.Trim() ?? "";
@@ -205,32 +182,22 @@ public sealed partial class ClonePage : Page
         {
             depth = n;
             sender.Text = n == 0
-                ? "完整历史（默认）"
-                : $"最近 {n} 个提交";
+                ? Loc.GetString("CloneDepthFull.Content")
+                : string.Format(Loc.GetString("CloneRecentCommits"), n);
         }
         else
         {
-            sender.Text = "完整历史（默认）";
+            sender.Text = Loc.GetString("CloneDepthFull.Content");
             depth = 0;
         }
 
         args.Handled = true;
-
         CheckDepthWarning(depth);
     }
 
-    // ============================================================
-    //  检查克隆深度是否超出仓库提交数
-    // ============================================================
     private void CheckDepthWarning(int depth)
     {
-        if (depth <= 0)
-        {
-            WarningBar.IsOpen = false;
-            return;
-        }
-
-        if (_totalCommits < 0)
+        if (depth <= 0 || _totalCommits < 0)
         {
             WarningBar.IsOpen = false;
             return;
@@ -238,9 +205,8 @@ public sealed partial class ClonePage : Page
 
         if (depth > _totalCommits)
         {
-            WarningBar.Title = "克隆深度超过实际提交数";
-            WarningBar.Message = $"你输入了 {depth}，但远程仓库只有 {_totalCommits} 个提交。" +
-                                 $"Git 会自动拉取全部 {_totalCommits} 个提交，不会报错。";
+            WarningBar.Title = Loc.GetString("CloneWarningDepthTitle");
+            WarningBar.Message = string.Format(Loc.GetString("CloneWarningDepthMsg"), depth, _totalCommits);
             WarningBar.Severity = InfoBarSeverity.Warning;
             WarningBar.IsOpen = true;
         }
@@ -250,9 +216,6 @@ public sealed partial class ClonePage : Page
         }
     }
 
-    // ============================================================
-    //  浏览目标目录
-    // ============================================================
     private async void OnBrowseClick(object sender, RoutedEventArgs e)
     {
         try
@@ -271,9 +234,6 @@ public sealed partial class ClonePage : Page
         }
     }
 
-    // ============================================================
-    //  开始克隆
-    // ============================================================
     private async void OnStartClick(object sender, RoutedEventArgs e)
     {
         if (_isCloning) return;
@@ -282,14 +242,13 @@ public sealed partial class ClonePage : Page
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            await ShowErrorAsync("Git 路径无效，请到设置页检查。");
+            await ShowErrorAsync(Loc.GetString("CloneErrGitPath"));
             return;
         }
 
         string url = UrlBox.Text.Trim();
         string targetPath = PathBox.Text.Trim();
 
-        // 解析克隆深度
         int depth = 0;
         string depthText = DepthCombo.Text?.Trim() ?? "";
 
@@ -299,24 +258,22 @@ public sealed partial class ClonePage : Page
         }
         else if (DepthCombo.SelectedItem is ComboBoxItem depthItem &&
                  depthItem.Tag is string depthTag &&
-                 int.TryParse(depthTag, out int parsedDepth) &&
-                 parsedDepth >= 0)
+                 int.TryParse(depthTag, out int parsedDepth) && parsedDepth >= 0)
         {
             depth = parsedDepth;
         }
 
-        // 开始前再检查一次深度警告（万一用户没按回车）
         CheckDepthWarning(depth);
 
         if (string.IsNullOrEmpty(url))
         {
-            await ShowErrorAsync("请填写远程地址。");
+            await ShowErrorAsync(Loc.GetString("CloneErrUrl"));
             return;
         }
 
         if (string.IsNullOrEmpty(targetPath))
         {
-            await ShowErrorAsync("请选择目标目录。");
+            await ShowErrorAsync(Loc.GetString("CloneErrPath"));
             return;
         }
 
@@ -333,7 +290,7 @@ public sealed partial class ClonePage : Page
         ProgressBar.Visibility = Visibility.Visible;
         ProgressBar.Value = 0;
         StatusText.Visibility = Visibility.Visible;
-        StatusText.Text = "正在克隆...";
+        StatusText.Text = Loc.GetString("CloneStatusCloning");
 
         try
         {
@@ -359,32 +316,29 @@ public sealed partial class ClonePage : Page
                 AppState.SetRepository(targetPath);
                 AppLogger.OK(TAG, $"克隆成功: {targetPath}");
 
-                StatusText.Text = $"克隆成功：{targetPath}";
+                StatusText.Text = string.Format(Loc.GetString("CloneStatusSuccess"), targetPath);
                 Frame.Navigate(typeof(RepoPage));
             }
             else
             {
-                StatusText.Text = "克隆失败";
+                StatusText.Text = Loc.GetString("CloneStatusFailed");
                 ResetUI();
             }
         }
         catch (OperationCanceledException)
         {
-            StatusText.Text = "克隆已取消";
+            StatusText.Text = Loc.GetString("CloneStatusCancelled");
             AppLogger.Warning(TAG, "克隆被用户取消");
             ResetUI();
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"克隆异常: {ex.Message}");
-            StatusText.Text = $"失败: {ex.Message}";
+            StatusText.Text = $"{Loc.GetString("CloneStatusFailed")}: {ex.Message}";
             ResetUI();
         }
     }
 
-    // ============================================================
-    //  取消按钮
-    // ============================================================
     private void OnCancelClick(object sender, RoutedEventArgs e)
     {
         if (_isCloning && _cts != null && !_cts.IsCancellationRequested)
@@ -397,9 +351,6 @@ public sealed partial class ClonePage : Page
         }
     }
 
-    // ============================================================
-    //  恢复 UI（克隆失败/取消后）
-    // ============================================================
     private void ResetUI()
     {
         _isCloning = false;
@@ -417,16 +368,13 @@ public sealed partial class ClonePage : Page
         DepthCombo.IsEnabled = urlChecked;
     }
 
-    // ============================================================
-    //  错误对话框
-    // ============================================================
     private async Task ShowErrorAsync(string message)
     {
         var dialog = new ContentDialog
         {
-            Title = "提示",
+            Title = Loc.GetString("CommonInfo"),
             Content = message,
-            CloseButtonText = "确定",
+            CloseButtonText = Loc.GetString("CommonOK"),
             XamlRoot = this.XamlRoot
         };
         await dialog.ShowAsync();

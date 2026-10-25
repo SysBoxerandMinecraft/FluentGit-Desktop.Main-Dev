@@ -59,27 +59,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 
-  <!-- 通用 -->
-  <data name="AppTitle.Title" xml:space="preserve"><value>FluentGit</value></data>
+  <!-- ====== 通用 ====== -->
+  <data name="CommonCancel.Content" xml:space="preserve"><value>取消</value></data>
+  <data name="CommonRefresh.Content" xml:space="preserve"><value>刷新</value></data>
+  <data name="CommonBrowse.Content" xml:space="preserve"><value>浏览...</value></data>
+  <data name="CommonNoRepo.Text" xml:space="preserve"><value>尚未打开任何仓库，请先到「仓库」页面打开一个仓库。</value></data>
   <data name="CommonSuccess" xml:space="preserve"><value>成功</value></data>
   <data name="CommonError" xml:space="preserve"><value>错误</value></data>
   <data name="CommonWarning" xml:space="preserve"><value>警告</value></data>
   <data name="CommonInfo" xml:space="preserve"><value>提示</value></data>
   <data name="CommonOK" xml:space="preserve"><value>确定</value></data>
-  <data name="CommonCancel" xml:space="preserve"><value>取消</value></data>
   <data name="CommonClose" xml:space="preserve"><value>关闭</value></data>
-  <data name="CommonRefresh" xml:space="preserve"><value>刷新</value></data>
-  <data name="CommonBrowse.Content" xml:space="preserve"><value>浏览...</value></data>
-  <data name="CommonNoRepo" xml:space="preserve"><value>尚未打开任何仓库，请先到「仓库」页面打开一个仓库。</value></data>
 
-  <!-- 导航栏 -->
+  <!-- 左侧导航栏 -->
   <data name="NavRepo.Content" xml:space="preserve"><value>仓库</value></data>
   <data name="NavFile.Content" xml:space="preserve"><value>文件</value></data>
   <data name="NavHistory.Content" xml:space="preserve"><value>历史</value></data>
   <data name="NavClone.Content" xml:space="preserve"><value>克隆</value></data>
   <data name="NavSettings.Content" xml:space="preserve"><value>设置</value></data>
+  <data name="AppTitle.Title" xml:space="preserve"><value>FluentGit</value></data>
 
-  <!-- 仓库页 (RepoPage) -->
+  <!-- ====== 仓库页 ====== -->
+  <data name="RepoGettingStarted.Text" xml:space="preserve"><value>开始使用</value></data>
+  <data name="RepoDownloadGit.Content" xml:space="preserve"><value>下载 Git for Windows</value></data>
   <data name="RepoInit.Content" xml:space="preserve"><value>初始化仓库</value></data>
   <data name="RepoOpen.Content" xml:space="preserve"><value>打开仓库</value></data>
   <data name="RepoClone.Content" xml:space="preserve"><value>克隆仓库</value></data>
@@ -99,7 +101,6 @@
   <data name="RepoMod" xml:space="preserve"><value>修改 {0}</value></data>
   <data name="RepoAdd" xml:space="preserve"><value>新增 {0}</value></data>
   <data name="RepoUntracked" xml:space="preserve"><value>未跟踪 {0}</value></data>
-  <!-- RepoPage C# 内部文本 -->
   <data name="RepoErrNoRepo" xml:space="preserve"><value>请先打开一个 Git 仓库!</value></data>
   <data name="RepoErrGitPath" xml:space="preserve"><value>Git 路径无效，请检查设置!</value></data>
   <data name="RepoErrActionFailed" xml:space="preserve"><value>操作失败: {0}</value></data>
@@ -118,7 +119,42 @@
   <data name="RepoStatusReading" xml:space="preserve"><value>正在读取变更...</value></data>
   <data name="RepoStatusReadFailed" xml:space="preserve"><value>读取变更失败</value></data>
 
-  <!-- 设置页 (SettingsPage) -->
+  <!-- ====== 克隆页 ====== -->
+  <data name="CloneTitle.Text" xml:space="preserve"><value>克隆仓库</value></data>
+  <data name="CloneUrl.Header" xml:space="preserve"><value>远程地址</value></data>
+  <data name="CloneUrl.PlaceholderText" xml:space="preserve"><value>https://github.com/user/repo.git</value></data>
+  <data name="ClonePath.Header" xml:space="preserve"><value>目标目录</value></data>
+  <data name="ClonePath.PlaceholderText" xml:space="preserve"><value>选择或输入一个空目录</value></data>
+  <data name="CloneBranchHeader.Text" xml:space="preserve"><value>分支（可选）</value></data>
+  <data name="CloneDepthHeader.Text" xml:space="preserve"><value>克隆深度</value></data>
+  <data name="CloneDepthPlaceholder.PlaceholderText" xml:space="preserve"><value>输入数字或选择预设</value></data>
+  <data name="CloneDepthHint.Text" xml:space="preserve"><value>也可直接输入数字，例如 20 表示只拉最近 20 个提交；0 表示完整历史</value></data>
+  <data name="CloneStart.Content" xml:space="preserve"><value>开始克隆</value></data>
+  <data name="CloneDepthFull.Content" xml:space="preserve"><value>完整历史（默认）</value></data>
+  <data name="CloneDepth1.Content" xml:space="preserve"><value>最近 1 个提交（最快）</value></data>
+  <data name="CloneDepth5.Content" xml:space="preserve"><value>最近 5 个提交</value></data>
+  <data name="CloneDepth10.Content" xml:space="preserve"><value>最近 10 个提交</value></data>
+  <data name="CloneDepth50.Content" xml:space="preserve"><value>最近 50 个提交</value></data>
+  <data name="CloneDepth100.Content" xml:space="preserve"><value>最近 100 个提交</value></data>
+  <data name="CloneDefaultBranch" xml:space="preserve"><value>默认分支</value></data>
+  <data name="CloneChecking" xml:space="preserve"><value>检查中...</value></data>
+  <data name="CloneLoading" xml:space="preserve"><value>加载中...</value></data>
+  <data name="CloneHintDefault" xml:space="preserve"><value>填完远程地址后自动加载分支</value></data>
+  <data name="CloneHintChecking" xml:space="preserve"><value>正在检查远程仓库...</value></data>
+  <data name="CloneLoadedBranches" xml:space="preserve"><value>已加载 {0} 个分支</value></data>
+  <data name="CloneNoBranches" xml:space="preserve"><value>未获取到分支，可能是地址无效或网络问题，将使用默认分支</value></data>
+  <data name="CloneRecentCommits" xml:space="preserve"><value>最近 {0} 个提交</value></data>
+  <data name="CloneWarningDepthTitle" xml:space="preserve"><value>克隆深度超过实际提交数</value></data>
+  <data name="CloneWarningDepthMsg" xml:space="preserve"><value>你输入了 {0}，但远程仓库只有 {1} 个提交。Git 会自动拉取全部 {1} 个提交，不会报错。</value></data>
+  <data name="CloneStatusCloning" xml:space="preserve"><value>正在克隆...</value></data>
+  <data name="CloneStatusSuccess" xml:space="preserve"><value>克隆成功：{0}</value></data>
+  <data name="CloneStatusFailed" xml:space="preserve"><value>克隆失败</value></data>
+  <data name="CloneStatusCancelled" xml:space="preserve"><value>克隆已取消</value></data>
+  <data name="CloneErrGitPath" xml:space="preserve"><value>Git 路径无效，请到设置页检查。</value></data>
+  <data name="CloneErrUrl" xml:space="preserve"><value>请填写远程地址。</value></data>
+  <data name="CloneErrPath" xml:space="preserve"><value>请选择目标目录。</value></data>
+
+  <!-- ====== 设置页 ====== -->
   <data name="SettingsTitle.Text" xml:space="preserve"><value>设置</value></data>
   <data name="SettingsSearchBox.PlaceholderText" xml:space="preserve"><value>搜索设置选项</value></data>
   <data name="SettingsNoResult.Text" xml:space="preserve"><value>未找到匹配的设置选项</value></data>
@@ -128,7 +164,6 @@
   <data name="SettingsBackdrop.Text" xml:space="preserve"><value>窗口背景效果</value></data>
   <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git 安装路径</value></data>
   <data name="SettingsFilterArtifacts.Content" xml:space="preserve"><value>过滤编译产物 / 临时文件</value></data>
-  <!-- SettingsPage C# 内部文本 -->
   <data name="SettingsGitGroup.Text" xml:space="preserve"><value>Git 管理</value></data>
   <data name="SettingsTreeViewGroup.Text" xml:space="preserve"><value>树状图显示选项</value></data>
   <data name="SettingsFilterDesc.Text" xml:space="preserve"><value>在目录树中隐藏 bin、obj、node_modules、__pycache__ 等构建产物和依赖目录</value></data>
@@ -161,7 +196,7 @@
   <data name="SettingsSearchTitleBackdrop" xml:space="preserve"><value>窗口背景效果</value></data>
   <data name="SettingsSearchTitleFilter" xml:space="preserve"><value>过滤编译产物 / 临时文件</value></data>
 
-  <!-- 历史页 (HistoryPage) -->
+  <!-- ====== 历史页 ====== -->
   <data name="HistoryTitle.Text" xml:space="preserve"><value>提交历史</value></data>
   <data name="HistoryEmpty.Text" xml:space="preserve"><value>该仓库还没有任何提交记录。</value></data>
   <data name="HistoryCopyHash.Text" xml:space="preserve"><value>复制完整 Hash</value></data>
@@ -176,10 +211,9 @@
   <data name="HistoryDetailTime" xml:space="preserve"><value>时间</value></data>
   <data name="HistoryDetailRelative" xml:space="preserve"><value>相对</value></data>
   <data name="HistoryDetailMsg" xml:space="preserve"><value>提交信息</value></data>
-  <data name="HistoryTooltipCopyHash" xml:space="preserve"><value>点击复制完整 Hash</value></data>
   <data name="HistoryErrGitPath" xml:space="preserve"><value>Git 路径无效，请到设置页检查。</value></data>
 
-  <!-- 文件页 (FilePage) -->
+  <!-- ====== 文件页 ====== -->
   <data name="FileTitle.Text" xml:space="preserve"><value>文件浏览</value></data>
   <data name="FileOpen.Text" xml:space="preserve"><value>打开</value></data>
   <data name="FileOpenTerminal.Text" xml:space="preserve"><value>在终端中打开</value></data>
@@ -188,39 +222,4 @@
   <data name="FileCopyName.Text" xml:space="preserve"><value>复制名称</value></data>
   <data name="FileRefreshTree.Text" xml:space="preserve"><value>刷新目录树</value></data>
   <data name="FileRepoRoot" xml:space="preserve"><value>{0}（仓库）</value></data>
-
-  <!-- 克隆页 (ClonePage) -->
-  <data name="CloneTitle.Text" xml:space="preserve"><value>克隆仓库</value></data>
-  <data name="CloneUrl.Header" xml:space="preserve"><value>远程地址</value></data>
-  <data name="CloneUrl.PlaceholderText" xml:space="preserve"><value>https://github.com/user/repo.git</value></data>
-  <data name="ClonePath.Header" xml:space="preserve"><value>目标目录</value></data>
-  <data name="ClonePath.PlaceholderText" xml:space="preserve"><value>选择或输入一个空目录</value></data>
-  <data name="CloneBranchHeader.Text" xml:space="preserve"><value>分支（可选）</value></data>
-  <data name="CloneDepthHeader.Text" xml:space="preserve"><value>克隆深度</value></data>
-  <data name="CloneDepthPlaceholder.PlaceholderText" xml:space="preserve"><value>输入数字或选择预设</value></data>
-  <data name="CloneDepthHint.Text" xml:space="preserve"><value>也可直接输入数字，例如 20 表示只拉最近 20 个提交；0 表示完整历史</value></data>
-  <data name="CloneStart.Content" xml:space="preserve"><value>开始克隆</value></data>
-  <data name="CloneDefaultBranch" xml:space="preserve"><value>默认分支</value></data>
-  <data name="CloneChecking" xml:space="preserve"><value>检查中...</value></data>
-  <data name="CloneLoading" xml:space="preserve"><value>加载中...</value></data>
-  <data name="CloneHintDefault" xml:space="preserve"><value>填完远程地址后自动加载分支</value></data>
-  <data name="CloneHintChecking" xml:space="preserve"><value>正在检查远程仓库...</value></data>
-  <data name="CloneDepthFull.Content" xml:space="preserve"><value>完整历史（默认）</value></data>
-  <data name="CloneDepth1.Content" xml:space="preserve"><value>最近 1 个提交（最快）</value></data>
-  <data name="CloneDepth5.Content" xml:space="preserve"><value>最近 5 个提交</value></data>
-  <data name="CloneDepth10.Content" xml:space="preserve"><value>最近 10 个提交</value></data>
-  <data name="CloneDepth50.Content" xml:space="preserve"><value>最近 50 个提交</value></data>
-  <data name="CloneDepth100.Content" xml:space="preserve"><value>最近 100 个提交</value></data>
-  <data name="CloneLoadedBranches" xml:space="preserve"><value>已加载 {0} 个分支</value></data>
-  <data name="CloneNoBranches" xml:space="preserve"><value>未获取到分支，可能是地址无效或网络问题，将使用默认分支</value></data>
-  <data name="CloneRecentCommits" xml:space="preserve"><value>最近 {0} 个提交</value></data>
-  <data name="CloneWarningDepthTitle" xml:space="preserve"><value>克隆深度超过实际提交数</value></data>
-  <data name="CloneWarningDepthMsg" xml:space="preserve"><value>你输入了 {0}，但远程仓库只有 {1} 个提交。Git 会自动拉取全部 {1} 个提交，不会报错。</value></data>
-  <data name="CloneStatusCloning" xml:space="preserve"><value>正在克隆...</value></data>
-  <data name="CloneStatusSuccess" xml:space="preserve"><value>克隆成功：{0}</value></data>
-  <data name="CloneStatusFailed" xml:space="preserve"><value>克隆失败</value></data>
-  <data name="CloneStatusCancelled" xml:space="preserve"><value>克隆已取消</value></data>
-  <data name="CloneErrGitPath" xml:space="preserve"><value>Git 路径无效，请到设置页检查。</value></data>
-  <data name="CloneErrUrl" xml:space="preserve"><value>请填写远程地址。</value></data>
-  <data name="CloneErrPath" xml:space="preserve"><value>请选择目标目录。</value></data>
 </root>

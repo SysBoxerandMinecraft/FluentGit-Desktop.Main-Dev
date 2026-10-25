@@ -27,88 +27,36 @@ public sealed partial class SettingsPage : Page
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         BuildSearchIndex();
-
         var settings = SettingsService.Load();
-
         _isUpdating = true;
 
-        // 初始化语言选中状态
         string currentLang = settings.Language ?? "zh-CN";
         foreach (var obj in LanguageComboBox.Items)
         {
-            if (obj is ComboBoxItem item && (item.Tag as string) == currentLang)
-            {
-                LanguageComboBox.SelectedItem = item;
-                break;
-            }
+            if (obj is ComboBoxItem item && (item.Tag as string) == currentLang) { LanguageComboBox.SelectedItem = item; break; }
         }
 
         FilterArtifactsCheckBox.IsChecked = settings.FilterBuildArtifacts;
-
         string currentBackdrop = settings.BackdropType ?? "Default";
         if (currentBackdrop == "MicaAlt") currentBackdrop = "Default";
 
         foreach (var obj in BackdropComboBox.Items)
         {
-            if (obj is ComboBoxItem item && (item.Tag as string) == currentBackdrop)
-            {
-                BackdropComboBox.SelectedItem = item;
-                break;
-            }
+            if (obj is ComboBoxItem item && (item.Tag as string) == currentBackdrop) { BackdropComboBox.SelectedItem = item; break; }
         }
 
         _isUpdating = false;
-
         UpdateBackdropHint(currentBackdrop);
-
         await AutoFindAndValidateGitAsync();
     }
 
     private void BuildSearchIndex()
     {
         _settings.Clear();
-
-        _settings.Add(new SearchEntry
-        {
-            Title = Loc.GetString("SettingsSearchTitleLanguage"),
-            Keywords = new[] { "语言", "language", "多语言", "i18n", "国际化", "localization", "繁中", "英文" },
-            Item = ItemLanguage,
-            Group = GroupLanguage
-        });
-
-        _settings.Add(new SearchEntry
-        {
-            Title = Loc.GetString("SettingsSearchTitleGit"),
-            Keywords = new[] { "git", "安装", "路径", "path", "install", "位置", "目录", "版本", "version" },
-            Item = ItemGitPath,
-            Group = GroupGit
-        });
-
-        _settings.Add(new SearchEntry
-        {
-            Title = Loc.GetString("SettingsSearchTitleBackdrop"),
-            Keywords = new[]
-            {
-                "背景", "效果", "外观", "主题",
-                "mica", "acrylic", "亚克力", "毛玻璃",
-                "backdrop", "background", "appearance"
-            },
-            Item = ItemBackdrop,
-            Group = GroupAppearance
-        });
-
-        _settings.Add(new SearchEntry
-        {
-            Title = Loc.GetString("SettingsSearchTitleFilter"),
-            Keywords = new[]
-            {
-                "过滤", "编译", "产物", "临时", "文件", "隐藏",
-                "bin", "obj", "node_modules", "__pycache__",
-                "filter", "artifact", "build", "temp", "cache"
-            },
-            Item = ItemFilterArtifacts,
-            Group = GroupTreeView
-        });
+        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleLanguage"), Keywords = new[] { "语言", "language", "i18n" }, Item = ItemLanguage, Group = GroupLanguage });
+        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleGit"), Keywords = new[] { "git", "path", "install" }, Item = ItemGitPath, Group = GroupGit });
+        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleBackdrop"), Keywords = new[] { "背景", "效果", "mica", "acrylic" }, Item = ItemBackdrop, Group = GroupAppearance });
+        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleFilter"), Keywords = new[] { "过滤", "编译", "bin", "obj" }, Item = ItemFilterArtifacts, Group = GroupTreeView });
     }
 
     private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -119,23 +67,17 @@ public sealed partial class SettingsPage : Page
 
     private void OnSearchQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
     {
-        if (args.ChosenSuggestion is string title)
-        {
-            sender.Text = title;
-            ApplySearch(title);
-        }
+        if (args.ChosenSuggestion is string title) { sender.Text = title; ApplySearch(title); }
     }
 
     private void OnSearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
     {
-        if (args.SelectedItem is string title)
-            sender.Text = title;
+        if (args.SelectedItem is string title) sender.Text = title;
     }
 
     private void ApplySearch(string query)
     {
         var matchedTitles = SearchService.ApplyFilter(_settings, query, out bool hasAnyMatch);
-
         NoResultText.Visibility = hasAnyMatch ? Visibility.Collapsed : Visibility.Visible;
         SearchBox.ItemsSource = matchedTitles.Count > 0 ? matchedTitles : null;
     }
@@ -151,13 +93,11 @@ public sealed partial class SettingsPage : Page
 
         settings.Language = langCode;
         SettingsService.Save(settings);
-        AppLogger.OK(TAG, $"Language changed to: {langCode}");
 
         var dialog = new ContentDialog
         {
             Title = Loc.GetString("CommonInfo"),
-            // 【关键修复】：加上 .Text 后缀
-            Content = Loc.GetString("SettingsLanguageDesc.Text"), 
+            Content = Loc.GetString("SettingsLanguageDesc.Text"), // 这里已去掉 .Text
             CloseButtonText = Loc.GetString("CommonOK"),
             XamlRoot = this.XamlRoot
         };
@@ -167,20 +107,14 @@ public sealed partial class SettingsPage : Page
     private void OnFilterArtifactsChecked(object sender, RoutedEventArgs e)
     {
         if (_isUpdating) return;
-        var settings = SettingsService.Load();
-        settings.FilterBuildArtifacts = true;
-        SettingsService.Save(settings);
-        AppLogger.OK(TAG, "过滤编译产物：已开启");
+        var settings = SettingsService.Load(); settings.FilterBuildArtifacts = true; SettingsService.Save(settings);
         Toast.Success(Loc.GetString("SettingsToastFilterOn"), Loc.GetString("SettingsToastSettingsUpdated"));
     }
 
     private void OnFilterArtifactsUnchecked(object sender, RoutedEventArgs e)
     {
         if (_isUpdating) return;
-        var settings = SettingsService.Load();
-        settings.FilterBuildArtifacts = false;
-        SettingsService.Save(settings);
-        AppLogger.OK(TAG, "过滤编译产物：已关闭");
+        var settings = SettingsService.Load(); settings.FilterBuildArtifacts = false; SettingsService.Save(settings);
         Toast.Info(Loc.GetString("SettingsToastFilterOff"), Loc.GetString("SettingsToastSettingsUpdated"));
     }
 
@@ -190,14 +124,9 @@ public sealed partial class SettingsPage : Page
         if (BackdropComboBox.SelectedItem is not ComboBoxItem item) return;
         if (item.Tag is not string tag) return;
 
-        var settings = SettingsService.Load();
-        settings.BackdropType = tag;
-        SettingsService.Save(settings);
-
+        var settings = SettingsService.Load(); settings.BackdropType = tag; SettingsService.Save(settings);
         App.MainWindow?.ApplyBackdrop(tag);
-
         UpdateBackdropHint(tag);
-        AppLogger.OK(TAG, $"背景效果切换为: {tag}");
 
         string displayName = tag switch
         {
@@ -214,113 +143,67 @@ public sealed partial class SettingsPage : Page
     {
         string hint = tag switch
         {
-            "Default" => MicaController.IsSupported()
-                ? Loc.GetString("SettingsHintDefaultOk")
-                : Loc.GetString("SettingsHintDefaultFail"),
-
-            "Mica" => MicaController.IsSupported()
-                ? Loc.GetString("SettingsHintMicaOk")
-                : Loc.GetString("SettingsHintMicaFail"),
-
-            "Acrylic" => DesktopAcrylicController.IsSupported()
-                ? Loc.GetString("SettingsHintAcrylicOk")
-                : Loc.GetString("SettingsHintAcrylicFail"),
-
+            "Default" => MicaController.IsSupported() ? Loc.GetString("SettingsHintDefaultOk") : Loc.GetString("SettingsHintDefaultFail"),
+            "Mica" => MicaController.IsSupported() ? Loc.GetString("SettingsHintMicaOk") : Loc.GetString("SettingsHintMicaFail"),
+            "Acrylic" => DesktopAcrylicController.IsSupported() ? Loc.GetString("SettingsHintAcrylicOk") : Loc.GetString("SettingsHintAcrylicFail"),
             "None" => Loc.GetString("SettingsHintNone"),
             _ => ""
         };
-
         BackdropHint.Text = hint;
     }
 
     private async Task AutoFindAndValidateGitAsync()
     {
         LoadingRing.IsActive = true;
-
         try
         {
             var settings = SettingsService.Load();
             string? gitPath = settings.GitPath;
-
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
                 await Task.Delay(100);
                 gitPath = await Task.Run(() => GitPathHelper.FindGitPath());
             }
-
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
-                UpdateSelectedPathDisplay("");
-                GitVersionDisplay.Visibility = Visibility.Collapsed;
-                AppLogger.Warning(TAG, "未找到 Git");
+                UpdateSelectedPathDisplay(""); GitVersionDisplay.Visibility = Visibility.Collapsed;
                 Toast.Warning(Loc.GetString("SettingsToastGitNotFound"));
                 return;
             }
-
             if (!GitPathHelper.ValidateGitPath(gitPath))
             {
                 UpdateSelectedPathDisplay(gitPath);
                 await UpdateGitVersionAsync(gitPath);
-                AppLogger.Error(TAG, $"签名验证失败: {gitPath}");
                 Toast.Error(Loc.GetString("SettingsToastGitInvalid"));
                 return;
             }
-
-            settings.GitPath = gitPath;
-            SettingsService.Save(settings);
+            
+            // 【关键修复】重新加载一次最新的 settings，防止覆盖用户刚切换的语言
+            var latestSettings = SettingsService.Load(); 
+            latestSettings.GitPath = gitPath;
+            SettingsService.Save(latestSettings);
 
             UpdateSelectedPathDisplay(gitPath);
             await UpdateGitVersionAsync(gitPath);
-            AppLogger.OK(TAG, $"自动找到并保存 Git: {gitPath}");
             Toast.Success(string.Format(Loc.GetString("SettingsToastGitFound"), gitPath));
         }
-        catch (Exception ex)
-        {
-            AppLogger.Error(TAG, $"查找异常: {ex.Message}");
-            Toast.Error(string.Format(Loc.GetString("SettingsToastSearchError"), ex.Message));
-        }
-        finally
-        {
-            LoadingRing.IsActive = false;
-        }
+        catch (Exception ex) { Toast.Error(string.Format(Loc.GetString("SettingsToastSearchError"), ex.Message)); }
+        finally { LoadingRing.IsActive = false; }
     }
 
     private void UpdateSelectedPathDisplay(string path)
     {
-        if (string.IsNullOrEmpty(path))
-            SelectedPathDisplay.Text = Loc.GetString("SettingsGitNoPath");
-        else
-            SelectedPathDisplay.Text = string.Format(Loc.GetString("SettingsGitCurrentPath"), path);
+        SelectedPathDisplay.Text = string.IsNullOrEmpty(path) ? Loc.GetString("SettingsGitNoPath") : string.Format(Loc.GetString("SettingsGitCurrentPath"), path);
     }
 
     private async Task UpdateGitVersionAsync(string? gitPath)
     {
-        if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
-        {
-            GitVersionDisplay.Visibility = Visibility.Collapsed;
-            return;
-        }
-
+        if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath)) { GitVersionDisplay.Visibility = Visibility.Collapsed; return; }
         try
         {
-            var psi = new ProcessStartInfo(gitPath)
-            {
-                Arguments = "--version",
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true,
-                StandardOutputEncoding = Encoding.UTF8,
-                StandardErrorEncoding = Encoding.UTF8
-            };
-
+            var psi = new ProcessStartInfo(gitPath) { Arguments = "--version", UseShellExecute = false, RedirectStandardOutput = true, RedirectStandardError = true, CreateNoWindow = true, StandardOutputEncoding = Encoding.UTF8, StandardErrorEncoding = Encoding.UTF8 };
             using var process = Process.Start(psi);
-            if (process == null)
-            {
-                GitVersionDisplay.Visibility = Visibility.Collapsed;
-                return;
-            }
-
+            if (process == null) { GitVersionDisplay.Visibility = Visibility.Collapsed; return; }
             string output = await process.StandardOutput.ReadToEndAsync();
             await process.WaitForExitAsync();
 
@@ -328,22 +211,12 @@ public sealed partial class SettingsPage : Page
             {
                 string version = output.Trim();
                 const string prefix = "git version ";
-                if (version.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                    version = version.Substring(prefix.Length);
-
+                if (version.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) version = version.Substring(prefix.Length);
                 GitVersionDisplay.Text = string.Format(Loc.GetString("SettingsGitVersion"), version);
                 GitVersionDisplay.Visibility = Visibility.Visible;
-                AppLogger.OK(TAG, $"Git 版本: {version}");
             }
-            else
-            {
-                GitVersionDisplay.Visibility = Visibility.Collapsed;
-            }
+            else GitVersionDisplay.Visibility = Visibility.Collapsed;
         }
-        catch (Exception ex)
-        {
-            AppLogger.Error(TAG, $"获取 Git 版本失败: {ex.Message}");
-            GitVersionDisplay.Visibility = Visibility.Collapsed;
-        }
+        catch { GitVersionDisplay.Visibility = Visibility.Collapsed; }
     }
 }
