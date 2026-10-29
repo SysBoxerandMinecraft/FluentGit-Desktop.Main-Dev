@@ -30,11 +30,12 @@ public sealed partial class SettingsPage : Page
         var settings = SettingsService.Load();
         _isUpdating = true;
 
-        string currentLang = settings.Language ?? "zh-CN";
-        foreach (var obj in LanguageComboBox.Items)
-        {
-            if (obj is ComboBoxItem item && (item.Tag as string) == currentLang) { LanguageComboBox.SelectedItem = item; break; }
-        }
+        // 语言设置模块暂时隐藏（非打包应用下多语言切换存在底层 BUG），不再初始化 LanguageComboBox
+        // string currentLang = settings.Language ?? "zh-CN";
+        // foreach (var obj in LanguageComboBox.Items)
+        // {
+        //     if (obj is ComboBoxItem item && (item.Tag as string) == currentLang) { LanguageComboBox.SelectedItem = item; break; }
+        // }
 
         FilterArtifactsCheckBox.IsChecked = settings.FilterBuildArtifacts;
         string currentBackdrop = settings.BackdropType ?? "Default";
@@ -53,7 +54,8 @@ public sealed partial class SettingsPage : Page
     private void BuildSearchIndex()
     {
         _settings.Clear();
-        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleLanguage"), Keywords = new[] { "语言", "language", "i18n" }, Item = ItemLanguage, Group = GroupLanguage });
+        // 语言设置模块暂时隐藏，不再加入搜索索引
+        // _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleLanguage"), Keywords = new[] { "语言", "language", "i18n" }, Item = ItemLanguage, Group = GroupLanguage });
         _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleGit"), Keywords = new[] { "git", "path", "install" }, Item = ItemGitPath, Group = GroupGit });
         _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleBackdrop"), Keywords = new[] { "背景", "效果", "mica", "acrylic" }, Item = ItemBackdrop, Group = GroupAppearance });
         _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleFilter"), Keywords = new[] { "过滤", "编译", "bin", "obj" }, Item = ItemFilterArtifacts, Group = GroupTreeView });
@@ -82,27 +84,28 @@ public sealed partial class SettingsPage : Page
         SearchBox.ItemsSource = matchedTitles.Count > 0 ? matchedTitles : null;
     }
 
-    private async void OnLanguageChanged(object sender, SelectionChangedEventArgs e)
-    {
-        if (_isUpdating) return;
-        if (LanguageComboBox.SelectedItem is not ComboBoxItem item) return;
-        if (item.Tag is not string langCode) return;
-
-        var settings = SettingsService.Load();
-        if (settings.Language == langCode) return;
-
-        settings.Language = langCode;
-        SettingsService.Save(settings);
-
-        var dialog = new ContentDialog
-        {
-            Title = Loc.GetString("CommonInfo"),
-            Content = Loc.GetString("SettingsLanguageDesc.Text"), // 这里已去掉 .Text
-            CloseButtonText = Loc.GetString("CommonOK"),
-            XamlRoot = this.XamlRoot
-        };
-        await dialog.ShowAsync();
-    }
+    // 语言设置模块暂时隐藏（非打包应用下多语言切换存在底层 BUG），事件处理一并注释
+    // private async void OnLanguageChanged(object sender, SelectionChangedEventArgs e)
+    // {
+    //     if (_isUpdating) return;
+    //     if (LanguageComboBox.SelectedItem is not ComboBoxItem item) return;
+    //     if (item.Tag is not string langCode) return;
+    //
+    //     var settings = SettingsService.Load();
+    //     if (settings.Language == langCode) return;
+    //
+    //     settings.Language = langCode;
+    //     SettingsService.Save(settings);
+    //
+    //     var dialog = new ContentDialog
+    //     {
+    //         Title = Loc.GetString("CommonInfo"),
+    //         Content = Loc.GetString("SettingsLanguageDesc.Text"), // 这里已去掉 .Text
+    //         CloseButtonText = Loc.GetString("CommonOK"),
+    //         XamlRoot = this.XamlRoot
+    //     };
+    //     await dialog.ShowAsync();
+    // }
 
     private void OnFilterArtifactsChecked(object sender, RoutedEventArgs e)
     {

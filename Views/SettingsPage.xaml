@@ -22,7 +22,8 @@
             <StackPanel Margin="30,6,30,30" Spacing="24">
                 <TextBlock x:Name="NoResultText" x:Uid="SettingsNoResult" FontSize="14" Foreground="Gray" Visibility="Collapsed" Margin="0,20,0,0"/>
 
-                <StackPanel x:Name="GroupLanguage" Spacing="10">
+                <!-- 语言设置模块暂时隐藏：非打包应用下多语言切换存在底层 BUG -->
+                <!-- <StackPanel x:Name="GroupLanguage" Spacing="10">
                     <TextBlock x:Uid="SettingsLanguage" FontSize="20" FontWeight="SemiBold"/>
                     <Border x:Name="ItemLanguage" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <Grid ColumnSpacing="20">
@@ -38,7 +39,7 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-                </StackPanel>
+                </StackPanel> -->
 
                 <StackPanel x:Name="GroupGit" Spacing="10">
                     <TextBlock x:Uid="SettingsGitGroup" FontSize="20" FontWeight="SemiBold"/>
