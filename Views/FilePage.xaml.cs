@@ -137,7 +137,7 @@ public sealed partial class FilePage : Page
             var rootModel = new TreeItemModel
             {
                 // 使用格式化字符串，翻译为 "{0}（仓库）"
-                Name = string.Format(Loc.GetString("FileRepoRoot"), rootName),
+                Name = string.Format(App.Localizer.GetLocalizedString("FileRepoRoot"), rootName),
                 FullPath = rootPath,
                 IsFile = false,
                 IconSource = GetIcon("Full_Folder.png")
@@ -292,7 +292,7 @@ public sealed partial class FilePage : Page
         {
             var openItem = new MenuFlyoutItem
             {
-                Text = Loc.GetString("FileOpen.Text"), // 加上 .Text
+                Text = App.Localizer.GetLocalizedString("FileOpen"),
                 Icon = new SymbolIcon(Symbol.OpenFile)
             };
             openItem.Click += (_, _) => OpenFile(model.FullPath);
@@ -302,7 +302,7 @@ public sealed partial class FilePage : Page
         {
             var terminalItem = new MenuFlyoutItem
             {
-                Text = Loc.GetString("FileOpenTerminal.Text"), // 加上 .Text
+                Text = App.Localizer.GetLocalizedString("FileOpenTerminal"),
                 Icon = new SymbolIcon(Symbol.Play)
             };
             terminalItem.Click += (_, _) => OpenTerminal(model.FullPath);
@@ -310,7 +310,7 @@ public sealed partial class FilePage : Page
 
             var explorerItem = new MenuFlyoutItem
             {
-                Text = Loc.GetString("FileOpenExplorer.Text"), // 加上 .Text
+                Text = App.Localizer.GetLocalizedString("FileOpenExplorer"),
                 Icon = new SymbolIcon(Symbol.Folder)
             };
             explorerItem.Click += (_, _) => OpenExplorer(model.FullPath);
@@ -321,7 +321,7 @@ public sealed partial class FilePage : Page
 
         var copyPathItem = new MenuFlyoutItem
         {
-            Text = Loc.GetString("FileCopyPath.Text"), // 加上 .Text
+            Text = App.Localizer.GetLocalizedString("FileCopyPath"),
             Icon = new SymbolIcon(Symbol.Copy)
         };
         copyPathItem.Click += (_, _) => CopyToClipboard(model.FullPath);
@@ -329,7 +329,7 @@ public sealed partial class FilePage : Page
 
         var copyNameItem = new MenuFlyoutItem
         {
-            Text = Loc.GetString("FileCopyName.Text"), // 加上 .Text
+            Text = App.Localizer.GetLocalizedString("FileCopyName"),
             Icon = new SymbolIcon(Symbol.Copy)
         };
         copyNameItem.Click += (_, _) => CopyToClipboard(model.Name);
@@ -339,7 +339,7 @@ public sealed partial class FilePage : Page
 
         var refreshItem = new MenuFlyoutItem
         {
-            Text = Loc.GetString("FileRefreshTree.Text"), // 加上 .Text
+            Text = App.Localizer.GetLocalizedString("FileRefreshTree"),
             Icon = new SymbolIcon(Symbol.Refresh)
         };
         refreshItem.Click += (_, _) =>

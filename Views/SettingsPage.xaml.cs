@@ -30,12 +30,11 @@ public sealed partial class SettingsPage : Page
         var settings = SettingsService.Load();
         _isUpdating = true;
 
-        // 语言设置模块暂时隐藏（非打包应用下多语言切换存在底层 BUG），不再初始化 LanguageComboBox
-        // string currentLang = settings.Language ?? "zh-CN";
-        // foreach (var obj in LanguageComboBox.Items)
-        // {
-        //     if (obj is ComboBoxItem item && (item.Tag as string) == currentLang) { LanguageComboBox.SelectedItem = item; break; }
-        // }
+        string currentLang = settings.Language ?? "zh-CN";
+        foreach (var obj in LanguageComboBox.Items)
+        {
+            if (obj is ComboBoxItem item && (item.Tag as string) == currentLang) { LanguageComboBox.SelectedItem = item; break; }
+        }
 
         FilterArtifactsCheckBox.IsChecked = settings.FilterBuildArtifacts;
         string currentBackdrop = settings.BackdropType ?? "Default";
@@ -54,11 +53,10 @@ public sealed partial class SettingsPage : Page
     private void BuildSearchIndex()
     {
         _settings.Clear();
-        // 语言设置模块暂时隐藏，不再加入搜索索引
-        // _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleLanguage"), Keywords = new[] { "语言", "language", "i18n" }, Item = ItemLanguage, Group = GroupLanguage });
-        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleGit"), Keywords = new[] { "git", "path", "install" }, Item = ItemGitPath, Group = GroupGit });
-        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleBackdrop"), Keywords = new[] { "背景", "效果", "mica", "acrylic" }, Item = ItemBackdrop, Group = GroupAppearance });
-        _settings.Add(new SearchEntry { Title = Loc.GetString("SettingsSearchTitleFilter"), Keywords = new[] { "过滤", "编译", "bin", "obj" }, Item = ItemFilterArtifacts, Group = GroupTreeView });
+        _settings.Add(new SearchEntry { Title = App.Localizer.GetLocalizedString("SettingsSearchTitleLanguage"), Keywords = new[] { "语言", "language", "i18n" }, Item = ItemLanguage, Group = GroupLanguage });
+        _settings.Add(new SearchEntry { Title = App.Localizer.GetLocalizedString("SettingsSearchTitleGit"), Keywords = new[] { "git", "path", "install" }, Item = ItemGitPath, Group = GroupGit });
+        _settings.Add(new SearchEntry { Title = App.Localizer.GetLocalizedString("SettingsSearchTitleBackdrop"), Keywords = new[] { "背景", "效果", "mica", "acrylic" }, Item = ItemBackdrop, Group = GroupAppearance });
+        _settings.Add(new SearchEntry { Title = App.Localizer.GetLocalizedString("SettingsSearchTitleFilter"), Keywords = new[] { "过滤", "编译", "bin", "obj" }, Item = ItemFilterArtifacts, Group = GroupTreeView });
     }
 
     private void OnSearchTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
@@ -84,41 +82,44 @@ public sealed partial class SettingsPage : Page
         SearchBox.ItemsSource = matchedTitles.Count > 0 ? matchedTitles : null;
     }
 
-    // 语言设置模块暂时隐藏（非打包应用下多语言切换存在底层 BUG），事件处理一并注释
-    // private async void OnLanguageChanged(object sender, SelectionChangedEventArgs e)
-    // {
-    //     if (_isUpdating) return;
-    //     if (LanguageComboBox.SelectedItem is not ComboBoxItem item) return;
-    //     if (item.Tag is not string langCode) return;
-    //
-    //     var settings = SettingsService.Load();
-    //     if (settings.Language == langCode) return;
-    //
-    //     settings.Language = langCode;
-    //     SettingsService.Save(settings);
-    //
-    //     var dialog = new ContentDialog
-    //     {
-    //         Title = Loc.GetString("CommonInfo"),
-    //         Content = Loc.GetString("SettingsLanguageDesc.Text"), // 这里已去掉 .Text
-    //         CloseButtonText = Loc.GetString("CommonOK"),
-    //         XamlRoot = this.XamlRoot
-    //     };
-    //     await dialog.ShowAsync();
-    // }
+    private async void OnLanguageChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (_isUpdating) return;
+        if (LanguageComboBox.SelectedItem is not ComboBoxItem item) return;
+        if (item.Tag is not string langCode) return;
+
+        var settings = SettingsService.Load();
+        if (settings.Language == langCode) return;
+
+        settings.Language = langCode;
+        SettingsService.Save(settings);
+
+        // 实时切换语言：SetLanguage 会重新本地化所有通过 Uids.Uid 注册的控件
+        try
+        {
+            await App.Localizer.SetLanguage(langCode);
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Error(TAG, $"切换语言失败: {ex.Message}");
+        }
+
+        // 刷新当前页面的搜索索引
+        BuildSearchIndex();
+    }
 
     private void OnFilterArtifactsChecked(object sender, RoutedEventArgs e)
     {
         if (_isUpdating) return;
         var settings = SettingsService.Load(); settings.FilterBuildArtifacts = true; SettingsService.Save(settings);
-        Toast.Success(Loc.GetString("SettingsToastFilterOn"), Loc.GetString("SettingsToastSettingsUpdated"));
+        Toast.Success(App.Localizer.GetLocalizedString("SettingsToastFilterOn"), App.Localizer.GetLocalizedString("SettingsToastSettingsUpdated"));
     }
 
     private void OnFilterArtifactsUnchecked(object sender, RoutedEventArgs e)
     {
         if (_isUpdating) return;
         var settings = SettingsService.Load(); settings.FilterBuildArtifacts = false; SettingsService.Save(settings);
-        Toast.Info(Loc.GetString("SettingsToastFilterOff"), Loc.GetString("SettingsToastSettingsUpdated"));
+        Toast.Info(App.Localizer.GetLocalizedString("SettingsToastFilterOff"), App.Localizer.GetLocalizedString("SettingsToastSettingsUpdated"));
     }
 
     private void OnBackdropChanged(object sender, SelectionChangedEventArgs e)
@@ -133,23 +134,23 @@ public sealed partial class SettingsPage : Page
 
         string displayName = tag switch
         {
-            "Default" => Loc.GetString("SettingsBackdropDefault"),
-            "Mica"    => Loc.GetString("SettingsBackdropMica"),
-            "Acrylic" => Loc.GetString("SettingsBackdropAcrylic"),
-            "None"    => Loc.GetString("SettingsBackdropNone"),
+            "Default" => App.Localizer.GetLocalizedString("SettingsBackdropDefault"),
+            "Mica"    => App.Localizer.GetLocalizedString("SettingsBackdropMica"),
+            "Acrylic" => App.Localizer.GetLocalizedString("SettingsBackdropAcrylic"),
+            "None"    => App.Localizer.GetLocalizedString("SettingsBackdropNone"),
             _         => tag
         };
-        Toast.Success(string.Format(Loc.GetString("SettingsToastBackdropChanged"), displayName), Loc.GetString("SettingsToastAppearanceUpdated"));
+        Toast.Success(string.Format(App.Localizer.GetLocalizedString("SettingsToastBackdropChanged"), displayName), App.Localizer.GetLocalizedString("SettingsToastAppearanceUpdated"));
     }
 
     private void UpdateBackdropHint(string tag)
     {
         string hint = tag switch
         {
-            "Default" => MicaController.IsSupported() ? Loc.GetString("SettingsHintDefaultOk") : Loc.GetString("SettingsHintDefaultFail"),
-            "Mica" => MicaController.IsSupported() ? Loc.GetString("SettingsHintMicaOk") : Loc.GetString("SettingsHintMicaFail"),
-            "Acrylic" => DesktopAcrylicController.IsSupported() ? Loc.GetString("SettingsHintAcrylicOk") : Loc.GetString("SettingsHintAcrylicFail"),
-            "None" => Loc.GetString("SettingsHintNone"),
+            "Default" => MicaController.IsSupported() ? App.Localizer.GetLocalizedString("SettingsHintDefaultOk") : App.Localizer.GetLocalizedString("SettingsHintDefaultFail"),
+            "Mica" => MicaController.IsSupported() ? App.Localizer.GetLocalizedString("SettingsHintMicaOk") : App.Localizer.GetLocalizedString("SettingsHintMicaFail"),
+            "Acrylic" => DesktopAcrylicController.IsSupported() ? App.Localizer.GetLocalizedString("SettingsHintAcrylicOk") : App.Localizer.GetLocalizedString("SettingsHintAcrylicFail"),
+            "None" => App.Localizer.GetLocalizedString("SettingsHintNone"),
             _ => ""
         };
         BackdropHint.Text = hint;
@@ -170,14 +171,14 @@ public sealed partial class SettingsPage : Page
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
                 UpdateSelectedPathDisplay(""); GitVersionDisplay.Visibility = Visibility.Collapsed;
-                Toast.Warning(Loc.GetString("SettingsToastGitNotFound"));
+                Toast.Warning(App.Localizer.GetLocalizedString("SettingsToastGitNotFound"));
                 return;
             }
             if (!GitPathHelper.ValidateGitPath(gitPath))
             {
                 UpdateSelectedPathDisplay(gitPath);
                 await UpdateGitVersionAsync(gitPath);
-                Toast.Error(Loc.GetString("SettingsToastGitInvalid"));
+                Toast.Error(App.Localizer.GetLocalizedString("SettingsToastGitInvalid"));
                 return;
             }
             
@@ -188,15 +189,15 @@ public sealed partial class SettingsPage : Page
 
             UpdateSelectedPathDisplay(gitPath);
             await UpdateGitVersionAsync(gitPath);
-            Toast.Success(string.Format(Loc.GetString("SettingsToastGitFound"), gitPath));
+            Toast.Success(string.Format(App.Localizer.GetLocalizedString("SettingsToastGitFound"), gitPath));
         }
-        catch (Exception ex) { Toast.Error(string.Format(Loc.GetString("SettingsToastSearchError"), ex.Message)); }
+        catch (Exception ex) { Toast.Error(string.Format(App.Localizer.GetLocalizedString("SettingsToastSearchError"), ex.Message)); }
         finally { LoadingRing.IsActive = false; }
     }
 
     private void UpdateSelectedPathDisplay(string path)
     {
-        SelectedPathDisplay.Text = string.IsNullOrEmpty(path) ? Loc.GetString("SettingsGitNoPath") : string.Format(Loc.GetString("SettingsGitCurrentPath"), path);
+        SelectedPathDisplay.Text = string.IsNullOrEmpty(path) ? App.Localizer.GetLocalizedString("SettingsGitNoPath") : string.Format(App.Localizer.GetLocalizedString("SettingsGitCurrentPath"), path);
     }
 
     private async Task UpdateGitVersionAsync(string? gitPath)
@@ -215,7 +216,7 @@ public sealed partial class SettingsPage : Page
                 string version = output.Trim();
                 const string prefix = "git version ";
                 if (version.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) version = version.Substring(prefix.Length);
-                GitVersionDisplay.Text = string.Format(Loc.GetString("SettingsGitVersion"), version);
+                GitVersionDisplay.Text = string.Format(App.Localizer.GetLocalizedString("SettingsGitVersion"), version);
                 GitVersionDisplay.Visibility = Visibility.Visible;
             }
             else GitVersionDisplay.Visibility = Visibility.Collapsed;

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:FluentGit.Views"
+      xmlns:l="using:WinUI3Localizer"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
@@ -13,11 +14,11 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="30,24,30,12">
-            <TextBlock x:Uid="FileTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBlock l:Uids.Uid="FileTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
         </Grid>
 
         <Grid Grid.Row="1" Margin="30,6,30,30">
-            <TextBlock x:Name="NoRepoText" x:Uid="CommonNoRepo" Foreground="Gray" />
+            <TextBlock x:Name="NoRepoText" l:Uids.Uid="CommonNoRepo" Foreground="Gray" />
             <TreeView x:Name="DirectoryTreeView" Visibility="Collapsed" SelectionMode="Single" ItemInvoked="DirectoryTreeView_ItemInvoked" RightTapped="DirectoryTreeView_RightTapped" Expanding="DirectoryTreeView_Expanding">
                 <TreeView.ItemTemplate>
                     <DataTemplate>

@@ -6,6 +6,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentGit"
+    xmlns:l="using:WinUI3Localizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -55,7 +56,7 @@
 
         <TitleBar
             x:Name="AppTitleBar"
-            x:Uid="AppTitle"
+            l:Uids.Uid="AppTitle"
             BackRequested="TitleBar_BackRequested"
             IsBackButtonVisible="False"
             IsPaneToggleButtonVisible="True"
@@ -75,25 +76,25 @@
             SelectionChanged="NavView_SelectionChanged"
             ItemInvoked="NavView_ItemInvoked">
             <NavigationView.MenuItems>
-                <NavigationViewItem x:Uid="NavRepo" Tag="repo" IsSelected="True">
+                <NavigationViewItem l:Uids.Uid="NavRepo" Tag="repo" IsSelected="True">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE943;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="NavFile" Tag="file">
+                <NavigationViewItem l:Uids.Uid="NavFile" Tag="file">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8B7;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="NavHistory" Tag="history">
+                <NavigationViewItem l:Uids.Uid="NavHistory" Tag="history">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE81C;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem x:Uid="NavClone" Tag="clone">
+                <NavigationViewItem l:Uids.Uid="NavClone" Tag="clone">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE8C8;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets" />
@@ -101,7 +102,7 @@
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem x:Uid="NavSettings" Tag="settings">
+                <NavigationViewItem l:Uids.Uid="NavSettings" Tag="settings">
                     <NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE713;"
                                   FontFamily="Segoe Fluent Icons,Segoe MDL2 Assets"

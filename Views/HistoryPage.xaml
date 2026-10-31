@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:services="using:FluentGit.Services"
+      xmlns:l="using:WinUI3Localizer"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
     <Grid>
@@ -17,16 +18,16 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" x:Uid="HistoryTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="0" l:Uids.Uid="HistoryTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center" />
             <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
                 <ProgressRing x:Name="LoadingRing" IsActive="False" Width="20" Height="20" Visibility="Collapsed" />
-                <Button x:Name="RefreshButton" x:Uid="CommonRefresh" Click="OnRefreshClick" Style="{StaticResource FormButtonStyle}" />
+                <Button x:Name="RefreshButton" l:Uids.Uid="CommonRefresh" Click="OnRefreshClick" Style="{StaticResource FormButtonStyle}" />
             </StackPanel>
         </Grid>
 
         <Grid Grid.Row="1" Margin="30,6,30,30">
-            <TextBlock x:Name="NoRepoText" x:Uid="CommonNoRepo" Foreground="Gray" Visibility="Visible" />
-            <TextBlock x:Name="EmptyText" x:Uid="HistoryEmpty" Foreground="Gray" Visibility="Collapsed" />
+            <TextBlock x:Name="NoRepoText" l:Uids.Uid="CommonNoRepo" Foreground="Gray" Visibility="Visible" />
+            <TextBlock x:Name="EmptyText" l:Uids.Uid="HistoryEmpty" Foreground="Gray" Visibility="Collapsed" />
             <ListView x:Name="LogListView" Visibility="Collapsed" SelectionMode="Single" IsItemClickEnabled="True" ItemClick="OnCommitItemClick">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="services:GitCommit">
@@ -46,18 +47,18 @@
                             </StackPanel>
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
-                                    <MenuFlyoutItem x:Uid="HistoryCopyHash" Click="OnCopyHashClick" Tag="{x:Bind Hash}">
+                                    <MenuFlyoutItem l:Uids.Uid="HistoryCopyHash" Click="OnCopyHashClick" Tag="{x:Bind Hash}">
                                         <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
-                                    <MenuFlyoutItem x:Uid="HistoryCopyShortHash" Click="OnCopyShortHashClick" Tag="{x:Bind ShortHash}">
-                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
-                                    </MenuFlyoutItem>
-                                    <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem x:Uid="HistoryCopyMsg" Click="OnCopyMessageClick" Tag="{x:Bind Message}">
+                                    <MenuFlyoutItem l:Uids.Uid="HistoryCopyShortHash" Click="OnCopyShortHashClick" Tag="{x:Bind ShortHash}">
                                         <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                     <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem x:Uid="HistoryViewDetail" Click="OnViewDetailClick">
+                                    <MenuFlyoutItem l:Uids.Uid="HistoryCopyMsg" Click="OnCopyMessageClick" Tag="{x:Bind Message}">
+                                        <MenuFlyoutItem.Icon><SymbolIcon Symbol="Copy" /></MenuFlyoutItem.Icon>
+                                    </MenuFlyoutItem>
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem l:Uids.Uid="HistoryViewDetail" Click="OnViewDetailClick">
                                         <MenuFlyoutItem.Icon><SymbolIcon Symbol="View" /></MenuFlyoutItem.Icon>
                                     </MenuFlyoutItem>
                                 </MenuFlyout>

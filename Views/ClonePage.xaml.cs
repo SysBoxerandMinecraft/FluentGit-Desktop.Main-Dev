@@ -25,8 +25,8 @@ public sealed partial class ClonePage : Page
     public ClonePage()
     {
         InitializeComponent();
-        BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
-        BranchHint.Text = Loc.GetString("CloneHintDefault");
+        BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneDefaultBranch");
+        BranchHint.Text = App.Localizer.GetLocalizedString("CloneHintDefault");
     }
 
     private void OnUrlTextChanged(object sender, TextChangedEventArgs e)
@@ -39,16 +39,16 @@ public sealed partial class ClonePage : Page
 
         if (string.IsNullOrEmpty(currentUrl))
         {
-            BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
-            BranchHint.Text = Loc.GetString("CloneHintDefault");
+            BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneDefaultBranch");
+            BranchHint.Text = App.Localizer.GetLocalizedString("CloneHintDefault");
             _lastFetchedUrl = "";
             _selectedBranch = null;
             _totalCommits = -1;
             return;
         }
 
-        BranchDropdown.Content = Loc.GetString("CloneChecking");
-        BranchHint.Text = Loc.GetString("CloneHintChecking");
+        BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneChecking");
+        BranchHint.Text = App.Localizer.GetLocalizedString("CloneHintChecking");
 
         if (_urlDebounceTimer == null)
         {
@@ -62,8 +62,8 @@ public sealed partial class ClonePage : Page
                 {
                     BranchDropdown.IsEnabled = false;
                     DepthCombo.IsEnabled = false;
-                    BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
-                    BranchHint.Text = Loc.GetString("CloneHintDefault");
+                    BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneDefaultBranch");
+                    BranchHint.Text = App.Localizer.GetLocalizedString("CloneHintDefault");
                     _lastFetchedUrl = "";
                     _totalCommits = -1;
                     return;
@@ -95,15 +95,15 @@ public sealed partial class ClonePage : Page
             string? gitPath = settings.GitPath;
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
-                BranchHint.Text = Loc.GetString("CloneErrGitPath");
+                BranchHint.Text = App.Localizer.GetLocalizedString("CloneErrGitPath");
                 return;
             }
 
             BranchMenu.Items.Clear();
-            BranchDropdown.Content = Loc.GetString("CloneLoading");
+            BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneLoading");
             BranchDropdown.IsEnabled = false;
             DepthCombo.IsEnabled = false;
-            BranchHint.Text = $"{Loc.GetString("CloneLoading")} {url}...";
+            BranchHint.Text = $"{App.Localizer.GetLocalizedString("CloneLoading")} {url}...";
 
             var branches = await GitService.GetRemoteBranchesAsync(gitPath, url);
             _lastFetchedUrl = url;
@@ -111,8 +111,8 @@ public sealed partial class ClonePage : Page
 
             BranchMenu.Items.Clear();
 
-            var defaultItem = new MenuFlyoutItem { Text = $"({Loc.GetString("CloneDefaultBranch")})" };
-            defaultItem.Click += (_, _) => SelectBranch(null, Loc.GetString("CloneDefaultBranch"));
+            var defaultItem = new MenuFlyoutItem { Text = $"({App.Localizer.GetLocalizedString("CloneDefaultBranch")})" };
+            defaultItem.Click += (_, _) => SelectBranch(null, App.Localizer.GetLocalizedString("CloneDefaultBranch"));
             BranchMenu.Items.Add(defaultItem);
 
             if (branches.Count > 0)
@@ -127,7 +127,7 @@ public sealed partial class ClonePage : Page
                     BranchMenu.Items.Add(item);
                 }
 
-                BranchHint.Text = string.Format(Loc.GetString("CloneLoadedBranches"), branches.Count);
+                BranchHint.Text = string.Format(App.Localizer.GetLocalizedString("CloneLoadedBranches"), branches.Count);
             }
             else
             {
@@ -136,7 +136,7 @@ public sealed partial class ClonePage : Page
                 emptyItem.IsEnabled = false;
                 BranchMenu.Items.Add(emptyItem);
 
-                BranchHint.Text = Loc.GetString("CloneNoBranches");
+                BranchHint.Text = App.Localizer.GetLocalizedString("CloneNoBranches");
             }
 
             BranchDropdown.IsEnabled = true;
@@ -149,16 +149,16 @@ public sealed partial class ClonePage : Page
             else
             {
                 _selectedBranch = null;
-                BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
+                BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneDefaultBranch");
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"加载分支失败: {ex.Message}");
-            BranchDropdown.Content = Loc.GetString("CloneDefaultBranch");
+            BranchDropdown.Content = App.Localizer.GetLocalizedString("CloneDefaultBranch");
             BranchDropdown.IsEnabled = true;
             DepthCombo.IsEnabled = true;
-            BranchHint.Text = Loc.GetString("CloneNoBranches");
+            BranchHint.Text = App.Localizer.GetLocalizedString("CloneNoBranches");
         }
         finally
         {
@@ -182,12 +182,12 @@ public sealed partial class ClonePage : Page
         {
             depth = n;
             sender.Text = n == 0
-                ? Loc.GetString("CloneDepthFull.Content")
-                : string.Format(Loc.GetString("CloneRecentCommits"), n);
+                ? App.Localizer.GetLocalizedString("CloneDepthFull")
+                : string.Format(App.Localizer.GetLocalizedString("CloneRecentCommits"), n);
         }
         else
         {
-            sender.Text = Loc.GetString("CloneDepthFull.Content");
+            sender.Text = App.Localizer.GetLocalizedString("CloneDepthFull");
             depth = 0;
         }
 
@@ -205,8 +205,8 @@ public sealed partial class ClonePage : Page
 
         if (depth > _totalCommits)
         {
-            WarningBar.Title = Loc.GetString("CloneWarningDepthTitle");
-            WarningBar.Message = string.Format(Loc.GetString("CloneWarningDepthMsg"), depth, _totalCommits);
+            WarningBar.Title = App.Localizer.GetLocalizedString("CloneWarningDepthTitle");
+            WarningBar.Message = string.Format(App.Localizer.GetLocalizedString("CloneWarningDepthMsg"), depth, _totalCommits);
             WarningBar.Severity = InfoBarSeverity.Warning;
             WarningBar.IsOpen = true;
         }
@@ -242,7 +242,7 @@ public sealed partial class ClonePage : Page
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            await ShowErrorAsync(Loc.GetString("CloneErrGitPath"));
+            await ShowErrorAsync(App.Localizer.GetLocalizedString("CloneErrGitPath"));
             return;
         }
 
@@ -267,13 +267,13 @@ public sealed partial class ClonePage : Page
 
         if (string.IsNullOrEmpty(url))
         {
-            await ShowErrorAsync(Loc.GetString("CloneErrUrl"));
+            await ShowErrorAsync(App.Localizer.GetLocalizedString("CloneErrUrl"));
             return;
         }
 
         if (string.IsNullOrEmpty(targetPath))
         {
-            await ShowErrorAsync(Loc.GetString("CloneErrPath"));
+            await ShowErrorAsync(App.Localizer.GetLocalizedString("CloneErrPath"));
             return;
         }
 
@@ -290,7 +290,7 @@ public sealed partial class ClonePage : Page
         ProgressBar.Visibility = Visibility.Visible;
         ProgressBar.Value = 0;
         StatusText.Visibility = Visibility.Visible;
-        StatusText.Text = Loc.GetString("CloneStatusCloning");
+        StatusText.Text = App.Localizer.GetLocalizedString("CloneStatusCloning");
 
         try
         {
@@ -316,25 +316,25 @@ public sealed partial class ClonePage : Page
                 AppState.SetRepository(targetPath);
                 AppLogger.OK(TAG, $"克隆成功: {targetPath}");
 
-                StatusText.Text = string.Format(Loc.GetString("CloneStatusSuccess"), targetPath);
+                StatusText.Text = string.Format(App.Localizer.GetLocalizedString("CloneStatusSuccess"), targetPath);
                 Frame.Navigate(typeof(RepoPage));
             }
             else
             {
-                StatusText.Text = Loc.GetString("CloneStatusFailed");
+                StatusText.Text = App.Localizer.GetLocalizedString("CloneStatusFailed");
                 ResetUI();
             }
         }
         catch (OperationCanceledException)
         {
-            StatusText.Text = Loc.GetString("CloneStatusCancelled");
+            StatusText.Text = App.Localizer.GetLocalizedString("CloneStatusCancelled");
             AppLogger.Warning(TAG, "克隆被用户取消");
             ResetUI();
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"克隆异常: {ex.Message}");
-            StatusText.Text = $"{Loc.GetString("CloneStatusFailed")}: {ex.Message}";
+            StatusText.Text = $"{App.Localizer.GetLocalizedString("CloneStatusFailed")}: {ex.Message}";
             ResetUI();
         }
     }
@@ -372,9 +372,9 @@ public sealed partial class ClonePage : Page
     {
         var dialog = new ContentDialog
         {
-            Title = Loc.GetString("CommonInfo"),
+            Title = App.Localizer.GetLocalizedString("CommonInfo"),
             Content = message,
-            CloseButtonText = Loc.GetString("CommonOK"),
+            CloseButtonText = App.Localizer.GetLocalizedString("CommonOK"),
             XamlRoot = this.XamlRoot
         };
         await dialog.ShowAsync();

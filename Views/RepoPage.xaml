@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:FluentGit.Views"
+      xmlns:l="using:WinUI3Localizer"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
       NavigationCacheMode="Required">
@@ -47,26 +48,26 @@
             <StackPanel Margin="30,6,30,30" Spacing="24">
 
                 <StackPanel x:Name="GitWarningPanel" Visibility="Collapsed" Spacing="10">
-                    <TextBlock x:Uid="RepoGitNotFound" FontSize="16" Foreground="Red" />
-                    <HyperlinkButton x:Uid="RepoDownloadGit" NavigateUri="https://git-scm.com/install/windows" />
+                    <TextBlock l:Uids.Uid="RepoGitNotFound" FontSize="16" Foreground="Red" />
+                    <HyperlinkButton l:Uids.Uid="RepoDownloadGit" NavigateUri="https://git-scm.com/install/windows" />
                 </StackPanel>
 
                 <StackPanel x:Name="RepoActionsPanel" Visibility="Visible" Spacing="10">
                     <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <StackPanel Spacing="16">
-                            <TextBlock x:Uid="RepoGettingStarted" FontSize="20" FontWeight="SemiBold"/>
+                            <TextBlock l:Uids.Uid="RepoGettingStarted" FontSize="20" FontWeight="SemiBold"/>
                             <Grid ColumnSpacing="10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="RepoPathTextBox" Grid.Column="0" x:Uid="RepoPath" Style="{StaticResource FormTextBoxStyle}" />
-                                <Button Grid.Column="1" x:Uid="RepoBrowse" Click="OnBrowseForInit" Style="{StaticResource FormButtonStyle}" />
+                                <TextBox x:Name="RepoPathTextBox" Grid.Column="0" l:Uids.Uid="RepoPath" Style="{StaticResource FormTextBoxStyle}" />
+                                <Button Grid.Column="1" l:Uids.Uid="RepoBrowse" Click="OnBrowseForInit" Style="{StaticResource FormButtonStyle}" />
                             </Grid>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Button x:Name="InitRepoButton" x:Uid="RepoInit" Click="OnInitRepository" Style="{StaticResource FormButtonStyle}" />
-                                <Button x:Name="OpenRepoButton" x:Uid="RepoOpen" Click="OnOpenRepo" Style="{StaticResource FormButtonStyle}" />
-                                <Button x:Name="CloneRepoButton" x:Uid="RepoClone" Click="OnNavigateToClone" Style="{StaticResource PrimaryFormButtonStyle}" />
+                                <Button x:Name="InitRepoButton" l:Uids.Uid="RepoInit" Click="OnInitRepository" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="OpenRepoButton" l:Uids.Uid="RepoOpen" Click="OnOpenRepo" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="CloneRepoButton" l:Uids.Uid="RepoClone" Click="OnNavigateToClone" Style="{StaticResource PrimaryFormButtonStyle}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -75,11 +76,11 @@
                 <StackPanel x:Name="RepoOpsPanel" Visibility="Collapsed" Spacing="10">
                     <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <StackPanel Spacing="16">
-                            <TextBlock x:Uid="RepoOpsTitle" FontSize="20" FontWeight="SemiBold"/>
+                            <TextBlock l:Uids.Uid="RepoOpsTitle" FontSize="20" FontWeight="SemiBold"/>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Button x:Name="PullButton" x:Uid="RepoPull" Click="OnPullRepository" Style="{StaticResource FormButtonStyle}" />
-                                <Button x:Name="FetchButton" x:Uid="RepoFetch" Click="OnFetchRepository" Style="{StaticResource FormButtonStyle}" />
-                                <Button x:Name="PushButton" x:Uid="RepoPush" Click="OnPushRepository" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="PullButton" l:Uids.Uid="RepoPull" Click="OnPullRepository" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="FetchButton" l:Uids.Uid="RepoFetch" Click="OnFetchRepository" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="PushButton" l:Uids.Uid="RepoPush" Click="OnPushRepository" Style="{StaticResource FormButtonStyle}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -88,13 +89,13 @@
                 <StackPanel x:Name="CommitPanel" Visibility="Collapsed" Spacing="10">
                     <Border Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <StackPanel Spacing="16">
-                            <TextBlock x:Uid="RepoCommitTitle" FontSize="20" FontWeight="SemiBold"/>
+                            <TextBlock l:Uids.Uid="RepoCommitTitle" FontSize="20" FontWeight="SemiBold"/>
                             <TextBlock x:Name="ChangeStatusText" Style="{StaticResource CaptionTextStyle}" />
-                            <TextBox x:Name="CommitMessageTextBox" x:Uid="RepoCommitPlaceholder" Style="{StaticResource FormTextBoxStyle}" AcceptsReturn="False" />
+                            <TextBox x:Name="CommitMessageTextBox" l:Uids.Uid="RepoCommitPlaceholder" Style="{StaticResource FormTextBoxStyle}" AcceptsReturn="False" />
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Button x:Name="AddAllButton" x:Uid="RepoAddAll" Click="OnAddAll" Style="{StaticResource FormButtonStyle}" />
-                                <Button x:Name="CommitButton" x:Uid="RepoCommit" Click="OnCommit" Style="{StaticResource PrimaryFormButtonStyle}" />
-                                <Button x:Name="RefreshStatusButton" x:Uid="RepoRefreshStatus" Click="OnRefreshChangeStatus" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="AddAllButton" l:Uids.Uid="RepoAddAll" Click="OnAddAll" Style="{StaticResource FormButtonStyle}" />
+                                <Button x:Name="CommitButton" l:Uids.Uid="RepoCommit" Click="OnCommit" Style="{StaticResource PrimaryFormButtonStyle}" />
+                                <Button x:Name="RefreshStatusButton" l:Uids.Uid="RepoRefreshStatus" Click="OnRefreshChangeStatus" Style="{StaticResource FormButtonStyle}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:l="using:WinUI3Localizer"
       mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,22 +16,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" x:Uid="SettingsTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center"/>
-            <AutoSuggestBox x:Name="SearchBox" Grid.Column="2" Width="300" Height="36" VerticalContentAlignment="Center" x:Uid="SettingsSearchBox" QueryIcon="Find" TextChanged="OnSearchTextChanged" QuerySubmitted="OnSearchQuerySubmitted" SuggestionChosen="OnSearchSuggestionChosen"/>
+            <TextBlock Grid.Column="0" l:Uids.Uid="SettingsTitle" FontSize="28" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            <AutoSuggestBox x:Name="SearchBox" Grid.Column="2" Width="300" Height="36" VerticalContentAlignment="Center" l:Uids.Uid="SettingsSearchBox" QueryIcon="Find" TextChanged="OnSearchTextChanged" QuerySubmitted="OnSearchQuerySubmitted" SuggestionChosen="OnSearchSuggestionChosen"/>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="30,6,30,30" Spacing="24">
-                <TextBlock x:Name="NoResultText" x:Uid="SettingsNoResult" FontSize="14" Foreground="Gray" Visibility="Collapsed" Margin="0,20,0,0"/>
+                <TextBlock x:Name="NoResultText" l:Uids.Uid="SettingsNoResult" FontSize="14" Foreground="Gray" Visibility="Collapsed" Margin="0,20,0,0"/>
 
-                <!-- 语言设置模块暂时隐藏：非打包应用下多语言切换存在底层 BUG -->
-                <!-- <StackPanel x:Name="GroupLanguage" Spacing="10">
-                    <TextBlock x:Uid="SettingsLanguage" FontSize="20" FontWeight="SemiBold"/>
+                <StackPanel x:Name="GroupLanguage" Spacing="10">
+                    <TextBlock l:Uids.Uid="SettingsLanguage" FontSize="20" FontWeight="SemiBold"/>
                     <Border x:Name="ItemLanguage" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <Grid ColumnSpacing="20">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="ms-appx:///Assets/File_Icon/Document/Language.png" Width="32" Height="32" Stretch="Uniform" VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="1" Spacing="10">
-                                <TextBlock x:Uid="SettingsLanguageDesc" FontSize="15" FontWeight="SemiBold"/>
+                                <TextBlock l:Uids.Uid="SettingsLanguageDesc" FontSize="15" FontWeight="SemiBold"/>
                                 <ComboBox x:Name="LanguageComboBox" HorizontalAlignment="Left" MinWidth="220" SelectionChanged="OnLanguageChanged">
                                     <ComboBoxItem Content="简体中文" Tag="zh-CN"/>
                                     <ComboBoxItem Content="繁體中文" Tag="zh-TW"/>
@@ -39,16 +39,16 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-                </StackPanel> -->
+                </StackPanel>
 
                 <StackPanel x:Name="GroupGit" Spacing="10">
-                    <TextBlock x:Uid="SettingsGitGroup" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock l:Uids.Uid="SettingsGitGroup" FontSize="20" FontWeight="SemiBold"/>
                     <Border x:Name="ItemGitPath" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <Grid ColumnSpacing="20">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="Auto"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                             <Image Grid.Column="0" Source="ms-appx:///Assets/GitAPPIcon.png" Width="110" Height="46" Stretch="Uniform" VerticalAlignment="Center"/>
                             <StackPanel Grid.Column="1" Spacing="10">
-                                <TextBlock x:Uid="SettingsGitPath" FontSize="15" FontWeight="SemiBold"/>
+                                <TextBlock l:Uids.Uid="SettingsGitPath" FontSize="15" FontWeight="SemiBold"/>
                                 <TextBlock x:Name="SelectedPathDisplay" Text="正在查找 Git..." FontSize="13" Foreground="Gray" TextWrapping="Wrap"/>
                                 <TextBlock x:Name="GitVersionDisplay" Text="" FontSize="13" Foreground="Gray" Visibility="Collapsed"/>
                                 <ProgressRing x:Name="LoadingRing" IsActive="True" Width="24" Height="24" HorizontalAlignment="Left"/>
@@ -58,10 +58,10 @@
                 </StackPanel>
 
                 <StackPanel x:Name="GroupAppearance" Spacing="10">
-                    <TextBlock x:Uid="SettingsTheme" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock l:Uids.Uid="SettingsTheme" FontSize="20" FontWeight="SemiBold"/>
                     <Border x:Name="ItemBackdrop" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <StackPanel Spacing="10">
-                            <TextBlock x:Uid="SettingsBackdrop" FontSize="15" FontWeight="SemiBold"/>
+                            <TextBlock l:Uids.Uid="SettingsBackdrop" FontSize="15" FontWeight="SemiBold"/>
                             <ComboBox x:Name="BackdropComboBox" HorizontalAlignment="Left" MinWidth="220" SelectionChanged="OnBackdropChanged">
                                 <ComboBoxItem Content="跟随系统" Tag="Default"/>
                                 <ComboBoxItem Content="Mica" Tag="Mica"/>
@@ -74,11 +74,11 @@
                 </StackPanel>
 
                 <StackPanel x:Name="GroupTreeView" Spacing="10">
-                    <TextBlock x:Uid="SettingsTreeViewGroup" FontSize="20" FontWeight="SemiBold"/>
+                    <TextBlock l:Uids.Uid="SettingsTreeViewGroup" FontSize="20" FontWeight="SemiBold"/>
                     <Border x:Name="ItemFilterArtifacts" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1" CornerRadius="6" Padding="16">
                         <StackPanel Spacing="6">
-                            <CheckBox x:Name="FilterArtifactsCheckBox" x:Uid="SettingsFilterArtifacts" Checked="OnFilterArtifactsChecked" Unchecked="OnFilterArtifactsUnchecked"/>
-                            <TextBlock x:Uid="SettingsFilterDesc" FontSize="12" Foreground="Gray" TextWrapping="Wrap" Margin="28,0,0,0"/>
+                            <CheckBox x:Name="FilterArtifactsCheckBox" l:Uids.Uid="SettingsFilterArtifacts" Checked="OnFilterArtifactsChecked" Unchecked="OnFilterArtifactsUnchecked"/>
+                            <TextBlock l:Uids.Uid="SettingsFilterDesc" FontSize="12" Foreground="Gray" TextWrapping="Wrap" Margin="28,0,0,0"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>

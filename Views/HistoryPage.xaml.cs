@@ -46,7 +46,7 @@ public sealed partial class HistoryPage : Page
             string? gitPath = settings.GitPath;
             if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
             {
-                NoRepoText.Text = Loc.GetString("HistoryErrGitPath");
+                NoRepoText.Text = App.Localizer.GetLocalizedString("HistoryErrGitPath");
                 NoRepoText.Visibility = Visibility.Visible; EmptyText.Visibility = Visibility.Collapsed; LogListView.Visibility = Visibility.Collapsed;
                 return;
             }
@@ -77,22 +77,22 @@ public sealed partial class HistoryPage : Page
 
     private void OnHashClick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button btn && btn.Tag is string hash) CopyToClipboard(hash, Loc.GetString("HistoryDetailHash"));
+        if (sender is Button btn && btn.Tag is string hash) CopyToClipboard(hash, App.Localizer.GetLocalizedString("HistoryDetailHash"));
     }
 
     private void OnCopyHashClick(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuFlyoutItem item && item.Tag is string hash) CopyToClipboard(hash, Loc.GetString("HistoryDetailHash"));
+        if (sender is MenuFlyoutItem item && item.Tag is string hash) CopyToClipboard(hash, App.Localizer.GetLocalizedString("HistoryDetailHash"));
     }
 
     private void OnCopyShortHashClick(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuFlyoutItem item && item.Tag is string shortHash) CopyToClipboard(shortHash, Loc.GetString("HistoryDetailShortHash"));
+        if (sender is MenuFlyoutItem item && item.Tag is string shortHash) CopyToClipboard(shortHash, App.Localizer.GetLocalizedString("HistoryDetailShortHash"));
     }
 
     private void OnCopyMessageClick(object sender, RoutedEventArgs e)
     {
-        if (sender is MenuFlyoutItem item && item.Tag is string message) CopyToClipboard(message, Loc.GetString("HistoryDetailMsg"));
+        if (sender is MenuFlyoutItem item && item.Tag is string message) CopyToClipboard(message, App.Localizer.GetLocalizedString("HistoryDetailMsg"));
     }
 
     private async void OnViewDetailClick(object sender, RoutedEventArgs e)
@@ -103,30 +103,30 @@ public sealed partial class HistoryPage : Page
     private async Task ShowCommitDetailAsync(GitCommit commit)
     {
         var panel = new StackPanel { Spacing = 10 };
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailHash"), commit.Hash, isMonospace: true));
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailShortHash"), commit.ShortHash, isMonospace: true));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailHash"), commit.Hash, isMonospace: true));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailShortHash"), commit.ShortHash, isMonospace: true));
         panel.Children.Add(BuildSeparator());
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailAuthor"), commit.Author));
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailEmail"), commit.Email));
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailTime"), commit.DateDisplay));
-        panel.Children.Add(BuildDetailRow(Loc.GetString("HistoryDetailRelative"), commit.RelativeTime));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailAuthor"), commit.Author));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailEmail"), commit.Email));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailTime"), commit.DateDisplay));
+        panel.Children.Add(BuildDetailRow(App.Localizer.GetLocalizedString("HistoryDetailRelative"), commit.RelativeTime));
         panel.Children.Add(BuildSeparator());
 
-        panel.Children.Add(new TextBlock { Text = Loc.GetString("HistoryDetailMsg"), FontSize = 12, FontFamily = UiFont, Foreground = (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"] });
+        panel.Children.Add(new TextBlock { Text = App.Localizer.GetLocalizedString("HistoryDetailMsg"), FontSize = 12, FontFamily = UiFont, Foreground = (Brush)Application.Current.Resources["TextFillColorSecondaryBrush"] });
         panel.Children.Add(new TextBlock { Text = commit.Message, TextWrapping = TextWrapping.Wrap, IsTextSelectionEnabled = true, FontFamily = UiFont });
 
         var dialog = new ContentDialog
         {
-            Title = Loc.GetString("HistoryDetailTitle"),
+            Title = App.Localizer.GetLocalizedString("HistoryDetailTitle"),
             Content = new ScrollViewer { Content = panel, MaxHeight = 400, HorizontalScrollMode = ScrollMode.Disabled, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled },
-            PrimaryButtonText = Loc.GetString("HistoryCopyHash.Text"),
-            CloseButtonText = Loc.GetString("CommonClose"),
+            PrimaryButtonText = App.Localizer.GetLocalizedString("HistoryCopyHash"),
+            CloseButtonText = App.Localizer.GetLocalizedString("CommonClose"),
             DefaultButton = ContentDialogButton.Close,
             XamlRoot = this.XamlRoot
         };
 
         var result = await dialog.ShowAsync();
-        if (result == ContentDialogResult.Primary) CopyToClipboard(commit.Hash, Loc.GetString("HistoryDetailHash"));
+        if (result == ContentDialogResult.Primary) CopyToClipboard(commit.Hash, App.Localizer.GetLocalizedString("HistoryDetailHash"));
     }
 
     private static StackPanel BuildDetailRow(string label, string value, bool isMonospace = false)

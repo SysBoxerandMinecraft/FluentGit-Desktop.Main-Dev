@@ -21,7 +21,7 @@ public sealed partial class RepoPage
         var repoPath = AppState.CurrentRepoPath;
         if (string.IsNullOrEmpty(repoPath) || !Directory.Exists(repoPath))
         {
-            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrNoRepo"), InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoErrNoRepo"), InfoBarSeverity.Error);
             return;
         }
 
@@ -29,7 +29,7 @@ public sealed partial class RepoPage
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrGitPath"), InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoErrGitPath"), InfoBarSeverity.Error);
             return;
         }
 
@@ -38,24 +38,24 @@ public sealed partial class RepoPage
             _isBusy = true;
 
             if (!string.IsNullOrEmpty(startMessage))
-                ShowInfoBar(Loc.GetString("CommonInfo"), startMessage, InfoBarSeverity.Informational);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonInfo"), startMessage, InfoBarSeverity.Informational);
 
             var result = await action(gitPath, repoPath);
 
             if (result.Success)
             {
-                ShowInfoBar(Loc.GetString("CommonSuccess"), result.Message, InfoBarSeverity.Success);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonSuccess"), result.Message, InfoBarSeverity.Success);
                 onSuccess?.Invoke();
             }
             else
             {
-                ShowInfoBar(Loc.GetString("CommonError"), result.Message, InfoBarSeverity.Error);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), result.Message, InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"{operationName} 异常: {ex.Message}");
-            ShowInfoBar(Loc.GetString("CommonError"), string.Format(Loc.GetString("RepoErrActionFailed"), ex.Message), InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), string.Format(App.Localizer.GetLocalizedString("RepoErrActionFailed"), ex.Message), InfoBarSeverity.Error);
         }
         finally
         {
@@ -71,17 +71,17 @@ public sealed partial class RepoPage
         string path = RepoPathTextBox.Text.Trim();
         if (string.IsNullOrEmpty(path))
         {
-            ShowInfoBar(Loc.GetString("CommonWarning"), Loc.GetString("RepoErrInitPath"), InfoBarSeverity.Warning);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonWarning"), App.Localizer.GetLocalizedString("RepoErrInitPath"), InfoBarSeverity.Warning);
             return;
         }
         if (!Directory.Exists(path))
         {
-            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrInitNotExist"), InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoErrInitNotExist"), InfoBarSeverity.Error);
             return;
         }
         if (GitService.IsGitRepository(path))
         {
-            ShowInfoBar(Loc.GetString("CommonInfo"), Loc.GetString("RepoErrInitAlready"), InfoBarSeverity.Informational);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonInfo"), App.Localizer.GetLocalizedString("RepoErrInitAlready"), InfoBarSeverity.Informational);
             return;
         }
 
@@ -89,7 +89,7 @@ public sealed partial class RepoPage
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoErrGitPath"), InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoErrGitPath"), InfoBarSeverity.Error);
             return;
         }
 
@@ -100,17 +100,17 @@ public sealed partial class RepoPage
             if (success)
             {
                 AppLogger.OK(TAG, $"仓库初始化成功: {path}");
-                ShowInfoBar(Loc.GetString("CommonSuccess"), string.Format(Loc.GetString("RepoInitSuccess"), path), InfoBarSeverity.Success);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonSuccess"), string.Format(App.Localizer.GetLocalizedString("RepoInitSuccess"), path), InfoBarSeverity.Success);
             }
             else
             {
-                ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoInitFailed"), InfoBarSeverity.Error);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoInitFailed"), InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"git init 异常: {ex.Message}");
-            ShowInfoBar(Loc.GetString("CommonError"), ex.Message, InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), ex.Message, InfoBarSeverity.Error);
         }
         finally
         {
@@ -144,17 +144,17 @@ public sealed partial class RepoPage
                 RepoNameDisplay.Visibility = Visibility.Visible;
                 UpdateCloneUI();
                 AppLogger.OK(TAG, $"已打开仓库: {repoPath}");
-                ShowInfoBar(Loc.GetString("CommonSuccess"), string.Format(Loc.GetString("RepoOpenSuccess"), Path.GetFileName(repoPath)), InfoBarSeverity.Success);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonSuccess"), string.Format(App.Localizer.GetLocalizedString("RepoOpenSuccess"), Path.GetFileName(repoPath)), InfoBarSeverity.Success);
             }
             else
             {
-                ShowInfoBar(Loc.GetString("CommonError"), Loc.GetString("RepoOpenNotGit"), InfoBarSeverity.Error);
+                ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), App.Localizer.GetLocalizedString("RepoOpenNotGit"), InfoBarSeverity.Error);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"打开仓库异常: {ex.Message}");
-            ShowInfoBar(Loc.GetString("CommonError"), ex.Message, InfoBarSeverity.Error);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonError"), ex.Message, InfoBarSeverity.Error);
         }
         finally
         {
@@ -172,7 +172,7 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.PullRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: Loc.GetString("RepoStatusPulling"));
+            startMessage: App.Localizer.GetLocalizedString("RepoStatusPulling"));
     }
 
     // ========== 获取远程信息 ==========
@@ -185,7 +185,7 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.FetchRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: Loc.GetString("RepoStatusFetching"));
+            startMessage: App.Localizer.GetLocalizedString("RepoStatusFetching"));
     }
 
     // ========== 全部暂存 ==========
@@ -207,7 +207,7 @@ public sealed partial class RepoPage
         string message = CommitMessageTextBox.Text.Trim();
         if (string.IsNullOrEmpty(message))
         {
-            ShowInfoBar(Loc.GetString("CommonWarning"), Loc.GetString("RepoErrNoCommitMsg"), InfoBarSeverity.Warning);
+            ShowInfoBar(App.Localizer.GetLocalizedString("CommonWarning"), App.Localizer.GetLocalizedString("RepoErrNoCommitMsg"), InfoBarSeverity.Warning);
             return;
         }
 
@@ -241,6 +241,6 @@ public sealed partial class RepoPage
                 var r = await Task.Run(() => GitService.PushRepository(git, repo));
                 return (r.Success, r.Message);
             },
-            startMessage: Loc.GetString("RepoStatusPushing"));
+            startMessage: App.Localizer.GetLocalizedString("RepoStatusPushing"));
     }
 }

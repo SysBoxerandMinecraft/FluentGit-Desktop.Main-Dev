@@ -15,7 +15,7 @@ public sealed partial class RepoPage
         var repoPath = AppState.CurrentRepoPath;
         if (string.IsNullOrEmpty(repoPath) || !Directory.Exists(repoPath))
         {
-            ChangeStatusText.Text = Loc.GetString("RepoStatusUnopened");
+            ChangeStatusText.Text = App.Localizer.GetLocalizedString("RepoStatusUnopened");
             return;
         }
 
@@ -23,33 +23,33 @@ public sealed partial class RepoPage
         string? gitPath = settings.GitPath;
         if (string.IsNullOrEmpty(gitPath) || !File.Exists(gitPath))
         {
-            ChangeStatusText.Text = Loc.GetString("RepoErrGitPath");
+            ChangeStatusText.Text = App.Localizer.GetLocalizedString("RepoErrGitPath");
             return;
         }
 
         try
         {
-            ChangeStatusText.Text = Loc.GetString("RepoStatusReading");
+            ChangeStatusText.Text = App.Localizer.GetLocalizedString("RepoStatusReading");
 
             var summary = await Task.Run(() => GitService.GetChangeSummary(gitPath, repoPath));
 
             if (summary.Modified == 0 && summary.Added == 0 && summary.Untracked == 0)
             {
-                ChangeStatusText.Text = Loc.GetString("RepoClean");
+                ChangeStatusText.Text = App.Localizer.GetLocalizedString("RepoClean");
             }
             else
             {
                 var parts = new List<string>();
-                if (summary.Modified > 0) parts.Add(string.Format(Loc.GetString("RepoMod"), summary.Modified));
-                if (summary.Added > 0) parts.Add(string.Format(Loc.GetString("RepoAdd"), summary.Added));
-                if (summary.Untracked > 0) parts.Add(string.Format(Loc.GetString("RepoUntracked"), summary.Untracked));
+                if (summary.Modified > 0) parts.Add(string.Format(App.Localizer.GetLocalizedString("RepoMod"), summary.Modified));
+                if (summary.Added > 0) parts.Add(string.Format(App.Localizer.GetLocalizedString("RepoAdd"), summary.Added));
+                if (summary.Untracked > 0) parts.Add(string.Format(App.Localizer.GetLocalizedString("RepoUntracked"), summary.Untracked));
                 ChangeStatusText.Text = string.Join("  ·  ", parts);
             }
         }
         catch (Exception ex)
         {
             AppLogger.Error(TAG, $"RefreshChangeStatus 异常: {ex.Message}");
-            ChangeStatusText.Text = Loc.GetString("RepoStatusReadFailed");
+            ChangeStatusText.Text = App.Localizer.GetLocalizedString("RepoStatusReadFailed");
         }
     }
 
