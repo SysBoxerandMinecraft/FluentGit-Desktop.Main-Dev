@@ -159,7 +159,7 @@
   <data name="SettingsSearchBox.PlaceholderText" xml:space="preserve"><value>搜索设置选项</value></data>
   <data name="SettingsNoResult.Text" xml:space="preserve"><value>未找到匹配的设置选项</value></data>
   <data name="SettingsLanguage.Text" xml:space="preserve"><value>语言</value></data>
-  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>选择应用语言（更改后需重启）</value></data>
+  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>选择应用语言</value></data>
   <data name="SettingsTheme.Text" xml:space="preserve"><value>外观</value></data>
   <data name="SettingsBackdrop.Text" xml:space="preserve"><value>窗口背景效果</value></data>
   <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git 安装路径</value></data>

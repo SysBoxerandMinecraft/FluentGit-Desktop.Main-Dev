@@ -160,7 +160,7 @@
   <data name="SettingsSearchBox.PlaceholderText" xml:space="preserve"><value>Search settings</value></data>
   <data name="SettingsNoResult.Text" xml:space="preserve"><value>No matching settings found</value></data>
   <data name="SettingsLanguage.Text" xml:space="preserve"><value>Language</value></data>
-  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>Select the app language (restart required after change)</value></data>
+  <data name="SettingsLanguageDesc.Text" xml:space="preserve"><value>Select the app language</value></data>
   <data name="SettingsTheme.Text" xml:space="preserve"><value>Appearance</value></data>
   <data name="SettingsBackdrop.Text" xml:space="preserve"><value>Window backdrop effect</value></data>
   <data name="SettingsGitPath.Text" xml:space="preserve"><value>Git installation path</value></data>
